@@ -1,0 +1,1031 @@
+[
+  {
+    "name": "Cron Guard",
+    "keywords": [
+      "cron job",
+      "scheduled tasks",
+      "job monitoring",
+      "task automation",
+      "cron management"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/cron guard/manual/"
+  },
+  {
+    "name": "Notion Table Cleaner",
+    "keywords": [
+      "Notion remove duplicate rows",
+      "Notion table data cleanup tool",
+      "format Notion database bulk",
+      "Notion import CSV messy fix",
+      "Notion database performance lag",
+      "clean Notion table formatting",
+      "Notion duplicate property finder",
+      "Notion database column cleanup"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/notion table cleaner/manual/"
+  },
+  {
+    "name": "Postgres Surgeon",
+    "keywords": [
+      "PostgreSQL database corruption",
+      "Postgres performance tuning",
+      "fix postgres bloat",
+      "slow sql queries recovery",
+      "WAL log error repair"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/postgres surgeon/manual/"
+  },
+  {
+    "name": "agents",
+    "keywords": [
+      "AI agent tool",
+      "Intelligent agent system",
+      "AI agent management",
+      "Intelligent agent platform",
+      "AI agent solution",
+      "Intelligent agent tool",
+      "AI agent development"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/agents/manual/"
+  },
+  {
+    "name": "agents-clean",
+    "keywords": [
+      "agents-clean tool",
+      "agents-clean solution",
+      "agents-clean software",
+      "agents-clean platform",
+      "agents-clean system"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/agents-clean/manual/"
+  },
+  {
+    "name": "artemisreentry",
+    "keywords": [
+      "Artemis reentry",
+      "Space reentry tool",
+      "Space return analysis",
+      "Artemis mission",
+      "Space reentry simulation",
+      "Space return technology",
+      "Artemis reentry analysis"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/artemisreentry/manual/"
+  },
+  {
+    "name": "autotask",
+    "keywords": [
+      "Automatic task tool",
+      "Task automation",
+      "Automatic task management",
+      "Task automatic execution",
+      "Automated task solution",
+      "Task automation software",
+      "Automatic task scheduling"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/autotask/manual/"
+  },
+  {
+    "name": "bbb26dramapredictor",
+    "keywords": [
+      "BBB26 drama prediction",
+      "Reality show drama prediction",
+      "BBB26 analysis tool",
+      "Reality show prediction software",
+      "BBB26 drama analysis",
+      "Reality show drama analysis",
+      "BBB26 prediction tool"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/bbb26dramapredictor/manual/"
+  },
+  {
+    "name": "billripper",
+    "keywords": [
+      "Bill parsing tool",
+      "Bill analysis software",
+      "Bill management system",
+      "Bill data extraction",
+      "Bill processing tool",
+      "Bill analysis solution",
+      "Bill automatic parsing"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/billripper/manual/"
+  },
+  {
+    "name": "boothell",
+    "keywords": [
+      "Boot design tool",
+      "Boot customization",
+      "Boot brand management",
+      "Boot sales platform",
+      "Boot design software",
+      "Boot industry solution",
+      "Boot customization service"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/boothell/manual/"
+  },
+  {
+    "name": "brainbridge",
+    "keywords": [
+      "Brain bridge tool",
+      "Thought connection software",
+      "Brain thinking tool",
+      "Thought bridge solution",
+      "Brain thinking training",
+      "Thought connection platform",
+      "Brain bridge technology"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/brainbridge/manual/"
+  },
+  {
+    "name": "capsule-factory-saas",
+    "keywords": [
+      "Capsule factory SaaS",
+      "Capsule production management",
+      "Capsule factory software",
+      "Capsule production solution",
+      "Capsule factory management system",
+      "Capsule production optimization",
+      "Capsule factory SaaS platform"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/capsule-factory-saas/manual/"
+  },
+  {
+    "name": "champions-sp-calc",
+    "keywords": [
+      "champions-sp-calc tool",
+      "champions-sp-calc solution",
+      "champions-sp-calc software",
+      "champions-sp-calc platform",
+      "champions-sp-calc system"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/champions-sp-calc/manual/"
+  },
+  {
+    "name": "chapterpredictor",
+    "keywords": [
+      "Chapter prediction tool",
+      "Content chapter prediction",
+      "Chapter generation software",
+      "Chapter prediction algorithm",
+      "Content structure prediction",
+      "Chapter prediction solution",
+      "Automatic chapter generation"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/chapterpredictor/manual/"
+  },
+  {
+    "name": "cineskin",
+    "keywords": [
+      "Movie skin design",
+      "Video effects tool",
+      "Movie post-production",
+      "Video skin effects",
+      "Movie effects software",
+      "Video skin design tool",
+      "Movie post-production effects"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/cineskin/manual/"
+  },
+  {
+    "name": "cleancsvai",
+    "keywords": [
+      "CSV file cleaning",
+      "Data cleaning tool",
+      "CSV data analysis",
+      "Data preprocessing tool",
+      "CSV format conversion",
+      "AI data cleaning",
+      "CSV file optimization"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/cleancsvai/manual/"
+  },
+  {
+    "name": "coachellaviral",
+    "keywords": [
+      "Coachella viral marketing",
+      "Music festival viral content",
+      "Coachella music festival marketing",
+      "Viral music festival content",
+      "Coachella marketing tool",
+      "Music festival viral spread",
+      "Coachella viral content creation"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/coachellaviral/manual/"
+  },
+  {
+    "name": "cronguard",
+    "keywords": [
+      "cronguard tool",
+      "cronguard solution",
+      "cronguard software",
+      "cronguard platform",
+      "cronguard system"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/cronguard/manual/"
+  },
+  {
+    "name": "crosspostfast",
+    "keywords": [
+      "Social media cross-platform posting",
+      "Multi-platform content publishing",
+      "Social media management tool",
+      "Content sync publishing",
+      "Social media automation",
+      "Cross-platform content management",
+      "Social media publishing tool"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/crosspostfast/manual/"
+  },
+  {
+    "name": "deadliner",
+    "keywords": [
+      "Deadline management",
+      "Task deadline tracking",
+      "Time management tool",
+      "Deadline reminder",
+      "Project deadline management",
+      "Time planning tool",
+      "Deadline tracking system"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/deadliner/manual/"
+  },
+  {
+    "name": "dentaiagent",
+    "keywords": [
+      "dentaiagent tool",
+      "dentaiagent solution",
+      "dentaiagent software",
+      "dentaiagent platform",
+      "dentaiagent system"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/dentaiagent/manual/"
+  },
+  {
+    "name": "deshaefrost",
+    "keywords": [
+      "Deshae Frost",
+      "Personal brand management",
+      "Social media personal brand",
+      "Personal brand tool",
+      "Deshae Frost brand",
+      "Personal brand solution",
+      "Social media personal brand management"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/deshaefrost/manual/"
+  },
+  {
+    "name": "fanguard",
+    "keywords": [
+      "Fan protection tool",
+      "Fan community management",
+      "Fan interaction platform",
+      "Fan protection system",
+      "Fan community safety",
+      "Fan management solution",
+      "Fan interaction tool"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/fanguard/manual/"
+  },
+  {
+    "name": "focusinbox",
+    "keywords": [
+      "Email management tool",
+      "Email organization system",
+      "Email priority management",
+      "Email focus tool",
+      "Email categorization system",
+      "Email efficiency improvement",
+      "Email management solution"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/focusinbox/manual/"
+  },
+  {
+    "name": "focusinbox-eight",
+    "keywords": [
+      "focusinbox-eight tool",
+      "focusinbox-eight solution",
+      "focusinbox-eight software",
+      "focusinbox-eight platform",
+      "focusinbox-eight system"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/focusinbox-eight/manual/"
+  },
+  {
+    "name": "free_ebook_maker",
+    "keywords": [
+      "free_ebook_maker tool",
+      "free_ebook_maker solution",
+      "free_ebook_maker software",
+      "free_ebook_maker platform",
+      "free_ebook_maker system"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/free_ebook_maker/manual/"
+  },
+  {
+    "name": "giveawaytracker",
+    "keywords": [
+      "Giveaway tracking tool",
+      "Giveaway management system",
+      "Giveaway event tracking",
+      "Giveaway marketing tool",
+      "Giveaway event management",
+      "Giveaway tracking solution",
+      "Giveaway event analysis"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/giveawaytracker/manual/"
+  },
+  {
+    "name": "gmailretrybeast",
+    "keywords": [
+      "Gmail retry tool",
+      "Email retry system",
+      "Gmail email management",
+      "Automatic email retry",
+      "Gmail retry solution",
+      "Email retry software",
+      "Gmail email retry"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/gmailretrybeast/manual/"
+  },
+  {
+    "name": "hooksurgeon",
+    "keywords": [
+      "Hook surgeon tool",
+      "Content hook creation",
+      "Hook generation software",
+      "Content hook optimization",
+      "Hook creation tool",
+      "Content hook solution",
+      "Hook generation tool"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/hooksurgeon/manual/"
+  },
+  {
+    "name": "humbled",
+    "keywords": [
+      "Humility cultivation tool",
+      "Personal growth tool",
+      "Humility character development",
+      "Self-improvement tool",
+      "Humility education",
+      "Personal development software",
+      "Humility quality assessment"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/humbled/manual/"
+  },
+  {
+    "name": "killbillcard",
+    "keywords": [
+      "Bill management tool",
+      "Credit card bill analysis",
+      "Bill tracking system",
+      "Expense record management",
+      "Bill analysis tool",
+      "Personal finance management",
+      "Credit card expense analysis"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/killbillcard/manual/"
+  },
+  {
+    "name": "killsaas",
+    "keywords": [
+      "SaaS tool management",
+      "SaaS cost control",
+      "SaaS tool evaluation",
+      "SaaS subscription management",
+      "Enterprise SaaS optimization",
+      "SaaS cost analysis",
+      "SaaS tool comparison"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/killsaas/manual/"
+  },
+  {
+    "name": "killsubscription",
+    "keywords": [
+      "Subscription management tool",
+      "Subscription cost control",
+      "Subscription tracking system",
+      "Subscription optimization",
+      "Subscription cost analysis",
+      "Subscription management solution",
+      "Subscription cancellation tool"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/killsubscription/manual/"
+  },
+  {
+    "name": "killswitchapi",
+    "keywords": [
+      "API management tool",
+      "API security protection",
+      "API monitoring system",
+      "API switch management",
+      "API access control",
+      "API performance monitoring",
+      "API security solution"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/killswitchapi/manual/"
+  },
+  {
+    "name": "lightningbrand",
+    "keywords": [
+      "lightningbrand tool",
+      "lightningbrand solution",
+      "lightningbrand software",
+      "lightningbrand platform",
+      "lightningbrand system"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/lightningbrand/manual/"
+  },
+  {
+    "name": "linguisticdnaextractor",
+    "keywords": [
+      "Linguistic DNA extractor",
+      "Language analysis tool",
+      "Text analysis software",
+      "Language pattern recognition",
+      "Text DNA analysis",
+      "Language feature extraction",
+      "Text analysis solution"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/linguisticdnaextractor/manual/"
+  },
+  {
+    "name": "manualslib",
+    "keywords": [
+      "Manual library",
+      "Product manual management",
+      "Manual search tool",
+      "Product documentation",
+      "Manual management system",
+      "Product documentation library",
+      "Manual database"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/manualslib/manual/"
+  },
+  {
+    "name": "mememooncalculator",
+    "keywords": [
+      "Meme moon calculator",
+      "Moon phase calculation",
+      "Meme generation tool",
+      "Moon phase analysis",
+      "Meme moon tool",
+      "Moon phase calculator",
+      "Meme moon generation"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/mememooncalculator/manual/"
+  },
+  {
+    "name": "mockupnuke",
+    "keywords": [
+      "Mockup design tool",
+      "UI mockup generation",
+      "Mockup creation software",
+      "Design mockup tool",
+      "UI design mockup",
+      "Mockup design solution",
+      "Quick mockup generation"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/mockupnuke/manual/"
+  },
+  {
+    "name": "multi-tenant-demo",
+    "keywords": [
+      "multi-tenant-demo tool",
+      "multi-tenant-demo solution",
+      "multi-tenant-demo software",
+      "multi-tenant-demo platform",
+      "multi-tenant-demo system"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/multi-tenant-demo/manual/"
+  },
+  {
+    "name": "navslayer",
+    "keywords": [
+      "Navigation tool",
+      "Map navigation service",
+      "Route planning tool",
+      "Navigation optimization",
+      "GPS navigation system",
+      "Navigation solution",
+      "Route optimization tool"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/navslayer/manual/"
+  },
+  {
+    "name": "neverexplain",
+    "keywords": [
+      "No-explain tool",
+      "Automatic explanation system",
+      "Intelligent explanation software",
+      "No-explain solution",
+      "Automatic explanation tool",
+      "Intelligent explanation system",
+      "No-explain technology"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/neverexplain/manual/"
+  },
+  {
+    "name": "neveruploadio",
+    "keywords": [
+      "File sharing tool",
+      "No-upload file sharing",
+      "P2P file transfer",
+      "Secure file sharing",
+      "Large file transfer",
+      "File sharing solution",
+      "Peer-to-peer file transfer"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/neveruploadio/manual/"
+  },
+  {
+    "name": "nichecalccrusher",
+    "keywords": [
+      "Niche calculator",
+      "Niche market analysis",
+      "Niche calculation tool",
+      "Niche market evaluation",
+      "Niche analysis software",
+      "Niche market solution",
+      "Niche calculator tool"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/nichecalccrusher/manual/"
+  },
+  {
+    "name": "noadobe",
+    "keywords": [
+      "Adobe alternative tools",
+      "Free design software",
+      "Online design tools",
+      "Graphic design software",
+      "Free graphic design",
+      "Design tool alternatives",
+      "Creative design software"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/noadobe/manual/"
+  },
+  {
+    "name": "noaimd",
+    "keywords": [
+      "Medical AI tool",
+      "Medical diagnosis assistance",
+      "Medical data analysis",
+      "Medical AI solution",
+      "Medical image analysis",
+      "Medical AI assisted diagnosis",
+      "Medical AI tool evaluation"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/noaimd/manual/"
+  },
+  {
+    "name": "noseotop",
+    "keywords": [
+      "SEO optimization tool",
+      "Website ranking improvement",
+      "Search engine optimization",
+      "Keyword analysis tool",
+      "Website traffic growth",
+      "SEO ranking optimization",
+      "Search engine marketing"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/noseotop/manual/"
+  },
+  {
+    "name": "notiontablecleaner",
+    "keywords": [
+      "notiontablecleaner tool",
+      "notiontablecleaner solution",
+      "notiontablecleaner software",
+      "notiontablecleaner platform",
+      "notiontablecleaner system"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/notiontablecleaner/manual/"
+  },
+  {
+    "name": "nukeprivacy",
+    "keywords": [
+      "Privacy protection tool",
+      "Data security protection",
+      "Personal information protection",
+      "Privacy breach prevention",
+      "Data encryption tool",
+      "Online privacy security",
+      "Personal data protection"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/nukeprivacy/manual/"
+  },
+  {
+    "name": "office-sync",
+    "keywords": [
+      "Office sync tool",
+      "File sync software",
+      "Office file sync",
+      "Multi-device file sync",
+      "Office sync solution",
+      "Automatic file sync",
+      "Office data sync"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/office-sync/manual/"
+  },
+  {
+    "name": "oneclickapi",
+    "keywords": [
+      "API one-click integration",
+      "API management tool",
+      "API quick access",
+      "API development tool",
+      "API integration platform",
+      "API management solution",
+      "API quick deployment"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/oneclickapi/manual/"
+  },
+  {
+    "name": "onecommand",
+    "keywords": [
+      "Command line tool",
+      "One-click command execution",
+      "Command automation",
+      "Command line optimization",
+      "Command management tool",
+      "Command line efficiency improvement",
+      "Command automation tool"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/onecommand/manual/"
+  },
+  {
+    "name": "onepagesaas",
+    "keywords": [
+      "Single page SaaS application",
+      "Single page application development",
+      "SaaS single page design",
+      "Single page application solution",
+      "SaaS single page architecture",
+      "Single page application optimization",
+      "SaaS single page development tool"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/onepagesaas/manual/"
+  },
+  {
+    "name": "personalock",
+    "keywords": [
+      "personalock tool",
+      "personalock solution",
+      "personalock software",
+      "personalock platform",
+      "personalock system"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/personalock/manual/"
+  },
+  {
+    "name": "pingthemio",
+    "keywords": [
+      "Network ping tool",
+      "Server monitoring",
+      "Network connection test",
+      "Website accessibility test",
+      "Network latency detection",
+      "Server status monitoring",
+      "Network performance test"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/pingthemio/manual/"
+  },
+  {
+    "name": "postgresroast",
+    "keywords": [
+      "PostgreSQL optimization",
+      "Database performance analysis",
+      "PostgreSQL tuning",
+      "Database performance testing",
+      "PostgreSQL performance optimization",
+      "Database tuning tool",
+      "PostgreSQL performance analysis"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/postgresroast/manual/"
+  },
+  {
+    "name": "postgressurgeon",
+    "keywords": [
+      "postgressurgeon tool",
+      "postgressurgeon solution",
+      "postgressurgeon software",
+      "postgressurgeon platform",
+      "postgressurgeon system"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/postgressurgeon/manual/"
+  },
+  {
+    "name": "receptionkiller",
+    "keywords": [
+      "Reception killer tool",
+      "Reception management system",
+      "Reception efficiency improvement",
+      "Reception optimization tool",
+      "Reception management solution",
+      "Reception process optimization",
+      "Reception efficiency tool"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/receptionkiller/manual/"
+  },
+  {
+    "name": "rugradar",
+    "keywords": [
+      "rugradar tool",
+      "rugradar solution",
+      "rugradar software",
+      "rugradar platform",
+      "rugradar system"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/rugradar/manual/"
+  },
+  {
+    "name": "saaskiller",
+    "keywords": [
+      "SaaS tool evaluation",
+      "SaaS cost optimization",
+      "SaaS tool comparison",
+      "SaaS subscription management",
+      "SaaS tool recommendation",
+      "SaaS cost analysis",
+      "Enterprise SaaS management"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/saaskiller/manual/"
+  },
+  {
+    "name": "saasstripper",
+    "keywords": [
+      "SaaS cost reduction",
+      "SaaS subscription management",
+      "SaaS cost analysis",
+      "SaaS tool evaluation",
+      "Enterprise SaaS optimization",
+      "SaaS cost control",
+      "SaaS subscription optimization"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/saasstripper/manual/"
+  },
+  {
+    "name": "samirapulse",
+    "keywords": [
+      "Samira pulse",
+      "Health pulse monitoring",
+      "Health tracking tool",
+      "Samira health management",
+      "Pulse monitoring software",
+      "Health tracking solution",
+      "Samira health tool"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/samirapulse/manual/"
+  },
+  {
+    "name": "scriptkill",
+    "keywords": [
+      "Script management tool",
+      "Script optimization",
+      "Script analysis software",
+      "Script performance testing",
+      "Script management solution",
+      "Script execution tool",
+      "Script efficiency improvement"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/scriptkill/manual/"
+  },
+  {
+    "name": "slimsnd",
+    "keywords": [
+      "Audio editing tool",
+      "Audio compression tool",
+      "Audio optimization",
+      "Audio file processing",
+      "Audio quality improvement",
+      "Audio editing software",
+      "Audio processing tool"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/slimsnd/manual/"
+  },
+  {
+    "name": "slopkiller",
+    "keywords": [
+      "Slop content cleaner",
+      "Content purification tool",
+      "Slop content filtering",
+      "Content quality improvement",
+      "Slop content cleaning software",
+      "Content purification solution",
+      "Slop content detection"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/slopkiller/manual/"
+  },
+  {
+    "name": "smesurvivalai",
+    "keywords": [
+      "Small business survival tool",
+      "Business survival AI",
+      "Small business management",
+      "Business survival strategy",
+      "Small business AI solution",
+      "Business survival analysis",
+      "Small business development tool"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/smesurvivalai/manual/"
+  },
+  {
+    "name": "songkrangenerator",
+    "keywords": [
+      "Song krangenerator tool",
+      "Music generation software",
+      "Song creation tool",
+      "Music creation assistance",
+      "Song generation solution",
+      "Automatic music generation",
+      "Song creation assistant"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/songkrangenerator/manual/"
+  },
+  {
+    "name": "stopaicost",
+    "keywords": [
+      "AI cost control",
+      "AI resource optimization",
+      "AI cost analysis",
+      "AI resource management",
+      "AI cost reduction",
+      "AI efficiency optimization",
+      "AI cost management tool"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/stopaicost/manual/"
+  },
+  {
+    "name": "stopsaas",
+    "keywords": [
+      "SaaS subscription management",
+      "SaaS cost control",
+      "SaaS tool evaluation",
+      "SaaS subscription optimization",
+      "Enterprise SaaS management",
+      "SaaS cost analysis",
+      "SaaS tool comparison"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/stopsaas/manual/"
+  },
+  {
+    "name": "stoptheswitch",
+    "keywords": [
+      "Prevent switch tool",
+      "User retention management",
+      "Prevent user churn",
+      "User retention strategy",
+      "Prevent switch solution",
+      "User retention tool",
+      "Prevent user platform switch"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/stoptheswitch/manual/"
+  },
+  {
+    "name": "truck",
+    "keywords": [
+      "truck tool",
+      "truck solution",
+      "truck software",
+      "truck platform",
+      "truck system"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/truck/manual/"
+  },
+  {
+    "name": "tweetvirality",
+    "keywords": [
+      "Twitter viral content",
+      "Twitter spread analysis",
+      "Twitter viral marketing",
+      "Twitter content spread",
+      "Twitter viral tool",
+      "Twitter spread prediction",
+      "Twitter viral content analysis"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/tweetvirality/manual/"
+  },
+  {
+    "name": "viralhook",
+    "keywords": [
+      "Viral content creation",
+      "Content viral spread",
+      "Social media content creation",
+      "Viral marketing tool",
+      "Content spread strategy",
+      "Social media viral content",
+      "Content viral spread tool"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/viralhook/manual/"
+  },
+  {
+    "name": "zerocloud",
+    "keywords": [
+      "Cloud storage service",
+      "File cloud backup",
+      "Cloud storage solution",
+      "Data cloud storage",
+      "Cloud file management",
+      "Cloud storage service",
+      "Enterprise cloud storage"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/zerocloud/manual/"
+  },
+  {
+    "name": "zerosub",
+    "keywords": [
+      "Subtitle tool",
+      "Video subtitle generation",
+      "Subtitle management system",
+      "Subtitle editing tool",
+      "Video subtitle solution",
+      "Automatic subtitle generation",
+      "Subtitle translation tool"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/zerosub/manual/"
+  },
+  {
+    "name": "Laravel Boilerplate Slayer",
+    "keywords": [
+      "Laravel Minimal Boilerplate",
+      "Laravel Auth Billing Snippets",
+      "Clean Laravel Starter Kit",
+      "Laravel Stripe Cashier Snippets",
+      "Laravel OpenAI Service Class"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/laravel boilerplate slayer/manual/"
+  },
+  {
+    "name": "Webhook Slayer",
+    "keywords": [
+      "Webhook Reliability Simulator",
+      "Exponential Backoff Tester",
+      "Stripe Webhook Retry Logic",
+      "Webhook Failure Debugger",
+      "Prevent Webhook Ghosting"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/webhook slayer/manual/"
+  },
+  {
+    "name": "Toolcall Killer",
+    "keywords": [
+      "AI Agent Tool Call Debugger",
+      "OpenAI Function Calling Fix",
+      "JSON Hallucination Detection",
+      "LLM Tool Call Validator",
+      "Fix Agent Tooling Errors"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/toolcall killer/manual/"
+  },
+  {
+    "name": "ContextLock",
+    "keywords": [
+      "AI Context Management",
+      "Persistent AI Memory",
+      "Developer Productivity Tool",
+      "Prompt Optimization",
+      "LLM Context Continuity"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/contextlock/manual/"
+  },
+  {
+    "name": "DeployGuard",
+    "keywords": [
+      "Code Security Audit",
+      "Solo Developer Tools",
+      "Static Analysis Tool",
+      "JavaScript Bug Finder",
+      "Missing Await Detector",
+      "Hardcoded Secret Scanner",
+      "SQL Injection Prevention",
+      "Pre-deployment Check",
+      "Indie Hacker Security",
+      "Real-time Code Reviewer"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/deployguard/manual/"
+  },
+  {
+    "name": "NoiseKiller",
+    "keywords": [
+      "Slack chat cleaner",
+      "AI context window optimizer",
+      "LLM prompt compression",
+      "chat noise reduction",
+      "Slack task extractor",
+      "Token saver for ChatGPT",
+      "Structured chat summary tool",
+      "Discord log cleaner for AI"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/noisekiller/manual/"
+  },
+  {
+    "name": "Dossier Pro",
+    "keywords": [
+      "Evidence Timeline Generator",
+      "Contract Chronology Tool",
+      "Private Project Dossier Creator"
+    ],
+    "manual_base_url": "https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/dossier pro/manual/"
+  }
+]
