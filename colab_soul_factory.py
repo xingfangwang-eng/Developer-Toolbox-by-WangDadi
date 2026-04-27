@@ -30,7 +30,7 @@ if not GROQ_API_KEY:
 # Groq API 配置
 GROQ_API_ENDPOINT = "https://api.groq.com/openai/v1/chat/completions"
 MODEL = "llama-3.1-8b-instant"  # Groq 最稳最快的模型
-MAX_WORKERS = 5  # 极致并发
+MAX_WORKERS = 1  # 单线程作战，不给 Groq 报错的机会
 
 # 占位符和禁止词汇
 PLACEHOLDER_PATTERNS = [
@@ -70,6 +70,8 @@ def verify_api():
             "messages": [{"role": "user", "content": "test"}],
             "max_tokens": 10
         }
+        # 验证前等待 3 秒
+        time.sleep(3)
         response = requests.post(GROQ_API_ENDPOINT, json=payload, headers=headers, timeout=30)
         if response.status_code == 200:
             print("Groq API 连接成功！")
@@ -176,6 +178,9 @@ IMPORTANT: Output ONLY the Markdown content. Do NOT include any introductory tex
 
     max_retries = 10
     for attempt in range(max_retries):
+        # 强制呼吸：每次请求前等待 3 秒，确保每分钟请求数控制在 20 次以内
+        time.sleep(3)
+        
         try:
             response = session.post(GROQ_API_ENDPOINT, json=payload, headers=headers, timeout=60)
             if response.status_code == 404:
@@ -226,8 +231,8 @@ IMPORTANT: Output ONLY the Markdown content. Do NOT include any introductory tex
                     print(f"502 错误 (尝试 {attempt+1}/{max_retries}): {error_text}，正在等待 3 秒...")
                     time.sleep(3)
                 elif e.response.status_code == 429:
-                    print(f"Rate Limit (尝试 {attempt+1}/{max_retries})，正在等待 5 秒...")
-                    time.sleep(5)
+                    print(f"Rate Limit (尝试 {attempt+1}/{max_retries})，正在等待 60 秒...")
+                    time.sleep(60)  # 指数退避：Rate Limit 强制休眠 60 秒
                 else:
                     print(f"HTTP 错误 (尝试 {attempt+1}/{max_retries}): {e}")
                     print(f"错误响应: {error_text}")
@@ -359,6 +364,8 @@ def collect_zombie_files(repo_path):
                     if contains_placeholders(content):
                         print(f"[发现] 僵尸文件: {file_path}")
                         zombie_files.append(file_path)
+                    else:
+                        print(f"[跳过] 已完成文件: {file_path}")
                 except Exception as e:
                     print(f"[Error] 读取文件失败 {file_path}: {e}")
 
