@@ -29,7 +29,7 @@ if not GROQ_API_KEY:
 
 # Groq API 配置
 GROQ_API_ENDPOINT = "https://api.groq.com/openai/v1/chat/completions"
-MODEL = "llama3-8b-8192"  # Groq 速度最快的模型
+MODEL = "llama-3.1-8b-instant"  # Groq 最稳最快的模型
 MAX_WORKERS = 5  # 极致并发
 
 # 占位符和禁止词汇
