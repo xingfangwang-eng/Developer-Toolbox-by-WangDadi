@@ -1,0 +1,554 @@
+[
+  {
+    "error_code": "0100C",
+    "condition": "dynamic_result_sets_returned"
+  },
+  {
+    "error_code": "01P01",
+    "condition": "deprecated_feature"
+  },
+  {
+    "error_code": "08P01",
+    "condition": "protocol_violation"
+  },
+  {
+    "error_code": "0A000",
+    "condition": "feature_not_supported"
+  },
+  {
+    "error_code": "0B000",
+    "condition": "invalid_transaction_initiation"
+  },
+  {
+    "error_code": "0F000",
+    "condition": "locator_exception"
+  },
+  {
+    "error_code": "0F001",
+    "condition": "invalid_locator_specification"
+  },
+  {
+    "error_code": "0L000",
+    "condition": "invalid_grantor"
+  },
+  {
+    "error_code": "0LP01",
+    "condition": "invalid_grant_operation"
+  },
+  {
+    "error_code": "0P000",
+    "condition": "invalid_role_specification"
+  },
+  {
+    "error_code": "0Z000",
+    "condition": "diagnostics_exception"
+  },
+  {
+    "error_code": "0Z002",
+    "condition": "stacked_diagnostics_accessed_without_active_handler"
+  },
+  {
+    "error_code": "2202E",
+    "condition": "array_subscript_error"
+  },
+  {
+    "error_code": "2200B",
+    "condition": "escape_character_conflict"
+  },
+  {
+    "error_code": "2201E",
+    "condition": "invalid_argument_for_logarithm"
+  },
+  {
+    "error_code": "2201F",
+    "condition": "invalid_argument_for_power_function"
+  },
+  {
+    "error_code": "2201G",
+    "condition": "invalid_argument_for_width_bucket_function"
+  },
+  {
+    "error_code": "2200D",
+    "condition": "invalid_escape_octet"
+  },
+  {
+    "error_code": "22P06",
+    "condition": "nonstandard_use_of_escape_character"
+  },
+  {
+    "error_code": "2201B",
+    "condition": "invalid_regular_expression"
+  },
+  {
+    "error_code": "2201W",
+    "condition": "invalid_row_count_in_limit_clause"
+  },
+  {
+    "error_code": "2201X",
+    "condition": "invalid_row_count_in_result_offset_clause"
+  },
+  {
+    "error_code": "2202H",
+    "condition": "invalid_tablesample_argument"
+  },
+  {
+    "error_code": "2202G",
+    "condition": "invalid_tablesample_repeat"
+  },
+  {
+    "error_code": "2200C",
+    "condition": "invalid_use_of_escape_character"
+  },
+  {
+    "error_code": "2200G",
+    "condition": "most_specific_type_mismatch"
+  },
+  {
+    "error_code": "2200H",
+    "condition": "sequence_generator_limit_exceeded"
+  },
+  {
+    "error_code": "2200F",
+    "condition": "zero_length_character_string"
+  },
+  {
+    "error_code": "22P01",
+    "condition": "floating_point_exception"
+  },
+  {
+    "error_code": "22P02",
+    "condition": "invalid_text_representation"
+  },
+  {
+    "error_code": "22P03",
+    "condition": "invalid_binary_representation"
+  },
+  {
+    "error_code": "22P04",
+    "condition": "bad_copy_file_format"
+  },
+  {
+    "error_code": "22P05",
+    "condition": "untranslatable_character"
+  },
+  {
+    "error_code": "2200L",
+    "condition": "not_an_xml_document"
+  },
+  {
+    "error_code": "2200M",
+    "condition": "invalid_xml_document"
+  },
+  {
+    "error_code": "2200N",
+    "condition": "invalid_xml_content"
+  },
+  {
+    "error_code": "2200S",
+    "condition": "invalid_xml_comment"
+  },
+  {
+    "error_code": "2200T",
+    "condition": "invalid_xml_processing_instruction"
+  },
+  {
+    "error_code": "2203A",
+    "condition": "sql_json_member_not_found"
+  },
+  {
+    "error_code": "2203B",
+    "condition": "sql_json_number_not_found"
+  },
+  {
+    "error_code": "2203C",
+    "condition": "sql_json_object_not_found"
+  },
+  {
+    "error_code": "2203D",
+    "condition": "too_many_json_array_elements"
+  },
+  {
+    "error_code": "2203E",
+    "condition": "too_many_json_object_members"
+  },
+  {
+    "error_code": "2203F",
+    "condition": "sql_json_scalar_required"
+  },
+  {
+    "error_code": "2203G",
+    "condition": "sql_json_item_cannot_be_cast_to_target_type"
+  },
+  {
+    "error_code": "23P01",
+    "condition": "exclusion_violation"
+  },
+  {
+    "error_code": "25P01",
+    "condition": "no_active_sql_transaction"
+  },
+  {
+    "error_code": "25P02",
+    "condition": "in_failed_sql_transaction"
+  },
+  {
+    "error_code": "25P03",
+    "condition": "idle_in_transaction_session_timeout"
+  },
+  {
+    "error_code": "25P04",
+    "condition": "transaction_timeout"
+  },
+  {
+    "error_code": "28P01",
+    "condition": "invalid_password"
+  },
+  {
+    "error_code": "2B000",
+    "condition": "dependent_privilege_descriptors_still_exist"
+  },
+  {
+    "error_code": "2BP01",
+    "condition": "dependent_objects_still_exist"
+  },
+  {
+    "error_code": "2D000",
+    "condition": "invalid_transaction_termination"
+  },
+  {
+    "error_code": "2F000",
+    "condition": "sql_routine_exception"
+  },
+  {
+    "error_code": "2F005",
+    "condition": "function_executed_no_return_statement"
+  },
+  {
+    "error_code": "2F002",
+    "condition": "modifying_sql_data_not_permitted"
+  },
+  {
+    "error_code": "2F003",
+    "condition": "prohibited_sql_statement_attempted"
+  },
+  {
+    "error_code": "2F004",
+    "condition": "reading_sql_data_not_permitted"
+  },
+  {
+    "error_code": "39P01",
+    "condition": "trigger_protocol_violated"
+  },
+  {
+    "error_code": "39P02",
+    "condition": "srf_protocol_violated"
+  },
+  {
+    "error_code": "39P03",
+    "condition": "event_trigger_protocol_violated"
+  },
+  {
+    "error_code": "3B000",
+    "condition": "savepoint_exception"
+  },
+  {
+    "error_code": "3B001",
+    "condition": "invalid_savepoint_specification"
+  },
+  {
+    "error_code": "3D000",
+    "condition": "invalid_catalog_name"
+  },
+  {
+    "error_code": "3F000",
+    "condition": "invalid_schema_name"
+  },
+  {
+    "error_code": "40P01",
+    "condition": "deadlock_detected"
+  },
+  {
+    "error_code": "42P20",
+    "condition": "windowing_error"
+  },
+  {
+    "error_code": "42P19",
+    "condition": "invalid_recursion"
+  },
+  {
+    "error_code": "42P18",
+    "condition": "indeterminate_datatype"
+  },
+  {
+    "error_code": "42P21",
+    "condition": "collation_mismatch"
+  },
+  {
+    "error_code": "42P22",
+    "condition": "indeterminate_collation"
+  },
+  {
+    "error_code": "428C9",
+    "condition": "generated_always"
+  },
+  {
+    "error_code": "42P01",
+    "condition": "undefined_table"
+  },
+  {
+    "error_code": "42P02",
+    "condition": "undefined_parameter"
+  },
+  {
+    "error_code": "42P03",
+    "condition": "duplicate_cursor"
+  },
+  {
+    "error_code": "42P04",
+    "condition": "duplicate_database"
+  },
+  {
+    "error_code": "42P05",
+    "condition": "duplicate_prepared_statement"
+  },
+  {
+    "error_code": "42P06",
+    "condition": "duplicate_schema"
+  },
+  {
+    "error_code": "42P07",
+    "condition": "duplicate_table"
+  },
+  {
+    "error_code": "42P08",
+    "condition": "ambiguous_parameter"
+  },
+  {
+    "error_code": "42P09",
+    "condition": "ambiguous_alias"
+  },
+  {
+    "error_code": "42P10",
+    "condition": "invalid_column_reference"
+  },
+  {
+    "error_code": "42P11",
+    "condition": "invalid_cursor_definition"
+  },
+  {
+    "error_code": "42P12",
+    "condition": "invalid_database_definition"
+  },
+  {
+    "error_code": "42P13",
+    "condition": "invalid_function_definition"
+  },
+  {
+    "error_code": "42P14",
+    "condition": "invalid_prepared_statement_definition"
+  },
+  {
+    "error_code": "42P15",
+    "condition": "invalid_schema_definition"
+  },
+  {
+    "error_code": "42P16",
+    "condition": "invalid_table_definition"
+  },
+  {
+    "error_code": "42P17",
+    "condition": "invalid_object_definition"
+  },
+  {
+    "error_code": "55P02",
+    "condition": "cant_change_runtime_param"
+  },
+  {
+    "error_code": "55P03",
+    "condition": "lock_not_available"
+  },
+  {
+    "error_code": "55P04",
+    "condition": "unsafe_new_enum_value_usage"
+  },
+  {
+    "error_code": "57P01",
+    "condition": "admin_shutdown"
+  },
+  {
+    "error_code": "57P02",
+    "condition": "crash_shutdown"
+  },
+  {
+    "error_code": "57P03",
+    "condition": "cannot_connect_now"
+  },
+  {
+    "error_code": "57P04",
+    "condition": "database_dropped"
+  },
+  {
+    "error_code": "57P05",
+    "condition": "idle_session_timeout"
+  },
+  {
+    "error_code": "58P01",
+    "condition": "undefined_file"
+  },
+  {
+    "error_code": "58P02",
+    "condition": "duplicate_file"
+  },
+  {
+    "error_code": "58P03",
+    "condition": "file_name_too_long"
+  },
+  {
+    "error_code": "F0000",
+    "condition": "config_file_error"
+  },
+  {
+    "error_code": "F0001",
+    "condition": "lock_file_exists"
+  },
+  {
+    "error_code": "HV000",
+    "condition": "fdw_error"
+  },
+  {
+    "error_code": "HV005",
+    "condition": "fdw_column_name_not_found"
+  },
+  {
+    "error_code": "HV002",
+    "condition": "fdw_dynamic_parameter_value_needed"
+  },
+  {
+    "error_code": "HV010",
+    "condition": "fdw_function_sequence_error"
+  },
+  {
+    "error_code": "HV021",
+    "condition": "fdw_inconsistent_descriptor_information"
+  },
+  {
+    "error_code": "HV024",
+    "condition": "fdw_invalid_attribute_value"
+  },
+  {
+    "error_code": "HV007",
+    "condition": "fdw_invalid_column_name"
+  },
+  {
+    "error_code": "HV008",
+    "condition": "fdw_invalid_column_number"
+  },
+  {
+    "error_code": "HV004",
+    "condition": "fdw_invalid_data_type"
+  },
+  {
+    "error_code": "HV006",
+    "condition": "fdw_invalid_data_type_descriptors"
+  },
+  {
+    "error_code": "HV091",
+    "condition": "fdw_invalid_descriptor_field_identifier"
+  },
+  {
+    "error_code": "HV00B",
+    "condition": "fdw_invalid_handle"
+  },
+  {
+    "error_code": "HV00C",
+    "condition": "fdw_invalid_option_index"
+  },
+  {
+    "error_code": "HV00D",
+    "condition": "fdw_invalid_option_name"
+  },
+  {
+    "error_code": "HV090",
+    "condition": "fdw_invalid_string_length_or_buffer_length"
+  },
+  {
+    "error_code": "HV00A",
+    "condition": "fdw_invalid_string_format"
+  },
+  {
+    "error_code": "HV009",
+    "condition": "fdw_invalid_use_of_null_pointer"
+  },
+  {
+    "error_code": "HV014",
+    "condition": "fdw_too_many_handles"
+  },
+  {
+    "error_code": "HV001",
+    "condition": "fdw_out_of_memory"
+  },
+  {
+    "error_code": "HV00P",
+    "condition": "fdw_no_schemas"
+  },
+  {
+    "error_code": "HV00J",
+    "condition": "fdw_option_name_not_found"
+  },
+  {
+    "error_code": "HV00K",
+    "condition": "fdw_reply_handle"
+  },
+  {
+    "error_code": "HV00Q",
+    "condition": "fdw_schema_not_found"
+  },
+  {
+    "error_code": "HV00R",
+    "condition": "fdw_table_not_found"
+  },
+  {
+    "error_code": "HV00L",
+    "condition": "fdw_unable_to_create_execution"
+  },
+  {
+    "error_code": "HV00M",
+    "condition": "fdw_unable_to_create_reply"
+  },
+  {
+    "error_code": "HV00N",
+    "condition": "fdw_unable_to_establish_connection"
+  },
+  {
+    "error_code": "P0000",
+    "condition": "plpgsql_error"
+  },
+  {
+    "error_code": "P0001",
+    "condition": "raise_exception"
+  },
+  {
+    "error_code": "P0002",
+    "condition": "no_data_found"
+  },
+  {
+    "error_code": "P0003",
+    "condition": "too_many_rows"
+  },
+  {
+    "error_code": "P0004",
+    "condition": "assert_failure"
+  },
+  {
+    "error_code": "XX000",
+    "condition": "internal_error"
+  },
+  {
+    "error_code": "XX001",
+    "condition": "data_corrupted"
+  },
+  {
+    "error_code": "XX002",
+    "condition": "index_corrupted"
+  }
+]
