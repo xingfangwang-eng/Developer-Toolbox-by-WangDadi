@@ -14,7 +14,7 @@ import concurrent.futures
 from tqdm import tqdm
 
 # 配置
-GITHUB_REPO = "your-github-username/your-repo-name"  # 替换为你的仓库
+GITHUB_REPO = "xingfangwang-eng/Developer-Toolbox-by-WangDadi"  # 替换为你的仓库
 GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
 GROQ_API_KEY = os.getenv('GROQ_API_KEY')
 
@@ -315,6 +315,11 @@ def clone_repository():
     repo_url = f"https://{GITHUB_TOKEN}@github.com/{GITHUB_REPO}.git"
     repo_name = GITHUB_REPO.split('/')[-1]
 
+    # 检测是否已经在仓库目录下
+    if os.path.exists('.git'):
+        print(f"检测到当前目录已是 Git 仓库，跳过克隆")
+        return os.getcwd()
+    
     if os.path.exists(repo_name):
         print(f"仓库 {repo_name} 已存在，执行 git pull 更新...")
         subprocess.run(["git", "pull"], cwd=repo_name, check=True)
