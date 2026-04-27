@@ -215,7 +215,8 @@ IMPORTANT: Output ONLY the Markdown content. Do NOT include any introductory tex
                 time.sleep(1)
                 continue
 
-            # 验证通过
+            # 验证通过 - 强制节奏控制：成功调用后休眠 4 秒，确保每分钟请求数 ≤ 15 次
+            time.sleep(4)
             return generated_content
 
         except requests.exceptions.Timeout:
@@ -231,8 +232,13 @@ IMPORTANT: Output ONLY the Markdown content. Do NOT include any introductory tex
                     print(f"502 错误 (尝试 {attempt+1}/{max_retries}): {error_text}，正在等待 3 秒...")
                     time.sleep(3)
                 elif e.response.status_code == 429:
-                    print(f"Rate Limit (尝试 {attempt+1}/{max_retries})，正在等待 60 秒...")
-                    time.sleep(60)  # 指数退避：Rate Limit 强制休眠 60 秒
+                    # 智能退避：追踪连续 429 错误次数
+                    if 'rate_limit_count' not in globals():
+                        globals()['rate_limit_count'] = 0
+                    globals()['rate_limit_count'] += 1
+                    wait_time = 60 * globals()['rate_limit_count']
+                    print(f"[Warning] 触发限流，进入深度休眠以恢复配额... (等待 {wait_time} 秒)")
+                    time.sleep(wait_time)
                 else:
                     print(f"HTTP 错误 (尝试 {attempt+1}/{max_retries}): {e}")
                     print(f"错误响应: {error_text}")
@@ -243,7 +249,10 @@ IMPORTANT: Output ONLY the Markdown content. Do NOT include any introductory tex
         except Exception as e:
             print(f"生成内容失败 (尝试 {attempt+1}/{max_retries}): {e}")
             time.sleep(3)
-
+    
+    # 重试次数用完或遇到连续 Rate Limit，重置计数器
+    if 'rate_limit_count' in globals():
+        globals()['rate_limit_count'] = 0
     # 重试次数用完，返回空
     return ""
 
