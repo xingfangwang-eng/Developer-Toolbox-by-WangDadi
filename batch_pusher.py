@@ -11,8 +11,8 @@ import subprocess
 from datetime import datetime
 
 GIT_REPO_PATH = r"E:\Developer-Toolbox-by-WangDadi"
-COMMIT_THRESHOLD = 50
-CHECK_INTERVAL_HOURS = 1
+COMMIT_THRESHOLD = 10
+CHECK_INTERVAL_MINUTES = 15
 
 def get_changed_files(repo_path):
     """获取所有已跟踪文件的变更状态"""
@@ -94,9 +94,19 @@ def main():
     print("=" * 60)
     print(f"📁 仓库路径: {GIT_REPO_PATH}")
     print(f"📊 提交阈值: {COMMIT_THRESHOLD} 个文件")
-    print(f"⏰ 检查间隔: {CHECK_INTERVAL_HOURS} 小时")
+    print(f"⏰ 检查间隔: {CHECK_INTERVAL_MINUTES} 分钟")
     print("=" * 60)
     
+    # 【强制首发】脚本启动时立即检查，如果有任何变动就执行第一次 push
+    print("\n🔥 冷启动检查：立即检查是否有未提交的变动...")
+    changed_files = get_changed_files(GIT_REPO_PATH)
+    if changed_files:
+        print(f"🚀 发现 {len(changed_files)} 个变动文件，立即执行首发提交！")
+        git_add_commit_push(GIT_REPO_PATH, changed_files)
+    else:
+        print("📝 暂无未提交的变动")
+    
+    # 进入定期检查循环
     while True:
         check_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         print(f"\n{'='*60}")
@@ -117,8 +127,8 @@ def main():
         else:
             print(f"📝 变动文件不足，等待下次检查...")
         
-        print(f"\n⏰ 下次检查时间: {CHECK_INTERVAL_HOURS} 小时后")
-        time.sleep(CHECK_INTERVAL_HOURS * 3600)
+        print(f"\n⏰ 下次检查时间: {CHECK_INTERVAL_MINUTES} 分钟后")
+        time.sleep(CHECK_INTERVAL_MINUTES * 60)
 
 if __name__ == "__main__":
     main()
