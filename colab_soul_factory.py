@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Colab Soul Factory - Groq API 暴力重写版
-使用 Groq API 实现极致速度的内容生成
+Colab Soul Factory - Gemini API 暴力重写版
+使用 Gemini 1.5 Flash 实现稳定的内容生成
 """
 
 import os
@@ -12,25 +12,29 @@ import requests
 import subprocess
 import concurrent.futures
 from tqdm import tqdm
+import google.generativeai as genai
 
 # 配置
-GITHUB_REPO = "xingfangwang-eng/Developer-Toolbox-by-WangDadi"  # 替换为你的仓库
+GITHUB_REPO = "xingfangwang-eng/Developer-Toolbox-by-WangDadi"
 GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
-GROQ_API_KEY = os.getenv('GROQ_API_KEY')
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
 
 # 检查环境变量
 if not GITHUB_TOKEN:
     print("错误：请设置 GITHUB_TOKEN 环境变量")
     exit(1)
 
-if not GROQ_API_KEY:
-    print("错误：请设置 GROQ_API_KEY 环境变量")
+if not GEMINI_API_KEY:
+    print("错误：请设置 GEMINI_API_KEY 环境变量")
     exit(1)
 
-# Groq API 配置
-GROQ_API_ENDPOINT = "https://api.groq.com/openai/v1/chat/completions"
-MODEL = "llama-3.1-8b-instant"  # Groq 最稳最快的模型
-MAX_WORKERS = 1  # 单线程作战，不给 Groq 报错的机会
+# Gemini API 配置
+MODEL_NAME = "gemini-1.5-flash"
+MAX_WORKERS = 1  # 单线程运行，严格控制请求数
+
+# 初始化 Gemini
+genai.configure(api_key=GEMINI_API_KEY)
+model = genai.GenerativeModel(MODEL_NAME)
 
 # 占位符和禁止词汇
 PLACEHOLDER_PATTERNS = [
@@ -55,36 +59,7 @@ FORBIDDEN_WORDS = [
 # 全局变量
 processed_count = 0
 lock = concurrent.futures.ThreadPoolExecutor(max_workers=1)
-
-# API 验证
-def verify_api():
-    """验证 Groq API 是否就绪"""
-    print("验证 Groq API 连接...")
-    try:
-        headers = {
-            "Authorization": f"Bearer {GROQ_API_KEY}",
-            "Content-Type": "application/json"
-        }
-        payload = {
-            "model": MODEL,
-            "messages": [{"role": "user", "content": "test"}],
-            "max_tokens": 10
-        }
-        # 验证前等待 3 秒
-        time.sleep(3)
-        response = requests.post(GROQ_API_ENDPOINT, json=payload, headers=headers, timeout=30)
-        if response.status_code == 200:
-            print("Groq API 连接成功！")
-            return True
-        else:
-            print(f"Groq API 返回状态码: {response.status_code}")
-            print(f"错误响应: {response.text}")
-            print("Groq API 未就绪，请检查 GROQ_API_KEY")
-            exit(1)
-    except Exception as e:
-        print(f"无法连接 Groq API: {e}")
-        print("Groq API 未就绪，请检查 GROQ_API_KEY")
-        exit(1)
+rate_limit_count = 0
 
 # 语言检测
 def detect_file_language(file_path):
@@ -100,7 +75,6 @@ def detect_file_language(file_path):
 # 提取项目信息
 def extract_project_info(file_path):
     """从文件路径提取项目信息"""
-    # 提取项目名
     parts = file_path.split(os.sep)
     project_name = ""
     for part in parts:
@@ -109,7 +83,6 @@ def extract_project_info(file_path):
         if part and not part.startswith('.'):
             project_name = part
 
-    # 生成关键词
     keywords = [project_name]
     if "postgres" in project_name.lower():
         keywords.extend(["database", "SQL", "PostgreSQL"])
@@ -144,11 +117,11 @@ def contains_placeholders(content):
 
 # 生成内容
 def generate_content(content, project_name, keywords, lang):
-    """调用 Groq API 生成内容（暴力模式）"""
-    # 生成系统提示
+    """调用 Gemini API 生成内容（严格限速）"""
+    global rate_limit_count
+
     system_prompt = generate_system_prompt(lang)
 
-    # 生成用户提示
     user_prompt = f"""直接重写 Markdown。要求：根据项目名 {project_name} 和关键词 {', '.join(keywords)}，生成地道、硬核的 {lang} 技术说明。字数 > 500。严禁输出任何废话和占位符。
 
 {content}
@@ -156,40 +129,22 @@ def generate_content(content, project_name, keywords, lang):
 IMPORTANT: Output ONLY the Markdown content. Do NOT include any introductory text. No conversational filler. Just the code.
 """
 
-    # 构建请求
-    payload = {
-        "model": MODEL,
-        "messages": [
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_prompt}
-        ],
-        "temperature": 0.7,
-        "max_tokens": 2000
-    }
-
-    headers = {
-        "Authorization": f"Bearer {GROQ_API_KEY}",
-        "Content-Type": "application/json"
-    }
-
-    # 创建会话
-    session = requests.Session()
-    session.mount('https://', requests.adapters.HTTPAdapter(pool_connections=10, pool_maxsize=10))
-
     max_retries = 10
     for attempt in range(max_retries):
-        # 强制呼吸：每次请求前等待 3 秒，确保每分钟请求数控制在 20 次以内
-        time.sleep(3)
-        
         try:
-            response = session.post(GROQ_API_ENDPOINT, json=payload, headers=headers, timeout=60)
-            if response.status_code == 404:
-                print(f"404 错误: {response.text}")
-                time.sleep(3)
-                continue
-            response.raise_for_status()
-            result = response.json()
-            generated_content = result.get("choices", [{}])[0].get("message", {}).get("content", "")
+            # 严格限速：每次请求前等待 4.3 秒，确保每分钟 ≤ 14 次请求
+            time.sleep(4.3)
+
+            response = model.generate_content(
+                contents=[{"role": "user", "parts": [user_prompt]}],
+                generation_config={
+                    "system_instruction": system_prompt,
+                    "temperature": 0.7,
+                    "max_output_tokens": 2000
+                }
+            )
+
+            generated_content = response.text
 
             # 严苛的响应校验
             if not generated_content.strip():
@@ -215,45 +170,23 @@ IMPORTANT: Output ONLY the Markdown content. Do NOT include any introductory tex
                 time.sleep(1)
                 continue
 
-            # 验证通过 - 强制节奏控制：成功调用后休眠 4 秒，确保每分钟请求数 ≤ 15 次
-            time.sleep(4)
+            # 验证通过，重置限流计数
+            rate_limit_count = 0
             return generated_content
 
-        except requests.exceptions.Timeout:
-            print(f"请求超时 (尝试 {attempt+1}/{max_retries})，正在等待 3 秒...")
-            time.sleep(3)
-        except requests.exceptions.ConnectionError:
-            print(f"连接错误 (尝试 {attempt+1}/{max_retries})，正在等待 3 秒...")
-            time.sleep(3)
-        except requests.exceptions.HTTPError as e:
-            if hasattr(e, 'response'):
-                error_text = e.response.text if hasattr(e.response, 'text') else 'No response text'
-                if e.response.status_code == 502:
-                    print(f"502 错误 (尝试 {attempt+1}/{max_retries}): {error_text}，正在等待 3 秒...")
-                    time.sleep(3)
-                elif e.response.status_code == 429:
-                    # 智能退避：追踪连续 429 错误次数
-                    if 'rate_limit_count' not in globals():
-                        globals()['rate_limit_count'] = 0
-                    globals()['rate_limit_count'] += 1
-                    wait_time = 60 * globals()['rate_limit_count']
-                    print(f"[Warning] 触发限流，进入深度休眠以恢复配额... (等待 {wait_time} 秒)")
-                    time.sleep(wait_time)
-                else:
-                    print(f"HTTP 错误 (尝试 {attempt+1}/{max_retries}): {e}")
-                    print(f"错误响应: {error_text}")
-                    time.sleep(3)
-            else:
-                print(f"HTTP 错误 (尝试 {attempt+1}/{max_retries}): {e}")
-                time.sleep(3)
         except Exception as e:
-            print(f"生成内容失败 (尝试 {attempt+1}/{max_retries}): {e}")
-            time.sleep(3)
-    
-    # 重试次数用完或遇到连续 Rate Limit，重置计数器
-    if 'rate_limit_count' in globals():
-        globals()['rate_limit_count'] = 0
-    # 重试次数用完，返回空
+            error_str = str(e).lower()
+            if '429' in error_str or 'rate' in error_str or 'quota' in error_str:
+                rate_limit_count += 1
+                wait_time = 60 * rate_limit_count
+                print(f"[Warning] 触发限流，进入深度休眠以恢复配额... (等待 {wait_time} 秒)")
+                time.sleep(wait_time)
+            else:
+                print(f"生成内容失败 (尝试 {attempt+1}/{max_retries}): {e}")
+                time.sleep(3)
+
+    # 重试次数用完，重置计数
+    rate_limit_count = 0
     return ""
 
 # 重写并验证
@@ -261,13 +194,9 @@ def rewrite_and_verify(file_path, total_files):
     """重写文件并验证"""
     global processed_count
 
-    # 识别语言
     lang = detect_file_language(file_path)
-
-    # 提取项目信息
     project_name, keywords = extract_project_info(file_path)
 
-    # 读取文件内容
     try:
         with open(file_path, 'r', encoding='utf-8-sig', errors='replace') as f:
             content = f.read()
@@ -275,19 +204,15 @@ def rewrite_and_verify(file_path, total_files):
         print(f"[Error] 读取文件失败 {file_path}: {e}")
         return False
 
-    # 生成内容
     generated_content = generate_content(content, project_name, keywords, lang)
 
-    # 检查生成结果
     if not generated_content:
         print(f"[Error] 无法生成有效的内容: {file_path}")
         return False
 
-    # 添加底部链接
-    footer = f"\n---\n\n👉 `https://www.wangdadi.xyz/?utm_source=github_groq`\n"
+    footer = f"\n---\n\n👉 `https://www.wangdadi.xyz/?utm_source=github_gemini`\n"
     final_content = generated_content + footer
 
-    # 写入文件
     try:
         with open(file_path, 'w', encoding='utf-8-sig') as f:
             f.write(final_content)
@@ -295,17 +220,15 @@ def rewrite_and_verify(file_path, total_files):
         print(f"[Error] 写入文件失败 {file_path}: {e}")
         return False
 
-    # 写入后的"回头看"验证
+    # 写入后验证
     try:
         with open(file_path, 'r', encoding='utf-8-sig', errors='replace') as f:
             written_content = f.read()
 
-        # 检查是否还有占位符
         if contains_placeholders(written_content):
             print(f"[Error] 写入后的文件仍然包含占位符: {file_path}")
             return False
 
-        # 检查内容长度
         if len(written_content) < 500:
             print(f"[Error] 写入后的文件内容长度不足 500 字符: {file_path}")
             return False
@@ -313,12 +236,10 @@ def rewrite_and_verify(file_path, total_files):
         print(f"[Error] 验证文件失败 {file_path}: {e}")
         return False
 
-    # 更新计数
     with lock:
         processed_count += 1
         current_count = processed_count
 
-    # 极简日志
     print(f"[Progress] {current_count}/{total_files} | Project: {project_name} | Lang: {lang.upper()}")
 
     return True
@@ -329,11 +250,10 @@ def clone_repository():
     repo_url = f"https://{GITHUB_TOKEN}@github.com/{GITHUB_REPO}.git"
     repo_name = GITHUB_REPO.split('/')[-1]
 
-    # 检测是否已经在仓库目录下
     if os.path.exists('.git'):
         print(f"检测到当前目录已是 Git 仓库，跳过克隆")
         return os.getcwd()
-    
+
     if os.path.exists(repo_name):
         print(f"仓库 {repo_name} 已存在，执行 git pull 更新...")
         subprocess.run(["git", "pull"], cwd=repo_name, check=True)
@@ -352,10 +272,8 @@ def collect_zombie_files(repo_path):
     print(f"开始在 {repo_path} 中扫描...")
 
     for root, dirs, files in os.walk(repo_path):
-        # 跳过隐藏目录
         dirs[:] = [d for d in dirs if not d.startswith('.')]
 
-        # 调试输出：打印正在查看的文件夹
         if root not in scanned_folders:
             print(f"[扫描] 正在查看文件夹: {root}")
             scanned_folders.add(root)
@@ -364,12 +282,10 @@ def collect_zombie_files(repo_path):
             if file.endswith('.md'):
                 file_path = os.path.join(root, file)
 
-                # 读取文件内容
                 try:
                     with open(file_path, 'r', encoding='utf-8-sig', errors='replace') as f:
                         content = f.read()
 
-                    # 检查是否包含占位符
                     if contains_placeholders(content):
                         print(f"[发现] 僵尸文件: {file_path}")
                         zombie_files.append(file_path)
@@ -385,10 +301,8 @@ def collect_zombie_files(repo_path):
 def git_commit_push(repo_path, count):
     """执行 Git 提交和推送（强制模式）"""
     try:
-        # 暴力添加所有更改
         subprocess.run(["git", "add", "."], cwd=repo_path, check=True)
 
-        # 检查是否有更改
         result = subprocess.run(
             ["git", "status", "--porcelain"],
             cwd=repo_path,
@@ -397,10 +311,8 @@ def git_commit_push(repo_path, count):
         )
 
         if result.stdout.strip():
-            # 提交
             commit_message = f"Colab Soul Factory: Resurrected {count} files"
             subprocess.run(["git", "commit", "-m", commit_message], cwd=repo_path, check=True)
-            # 强制推送
             subprocess.run(["git", "push", "-f"], cwd=repo_path, check=True)
             print(f"[Git] 已强制提交并推送 {count} 个文件的更改")
     except Exception as e:
@@ -408,10 +320,8 @@ def git_commit_push(repo_path, count):
 
 # 主函数
 def main():
-    print("Colab Soul Factory 启动 - Groq API 极致速度版")
-
-    # 验证 API 连接
-    verify_api()
+    print("Colab Soul Factory 启动 - Gemini API 限速版")
+    print(f"模型: {MODEL_NAME} | 限速: 14 RPM | 单线程")
 
     # 克隆仓库
     repo_name = clone_repository()
@@ -433,25 +343,20 @@ def main():
     processed_count = 0
     success_count = 0
 
-    # 使用线程池并发处理
     with concurrent.futures.ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
-        # 提交所有任务
         future_to_file = {executor.submit(rewrite_and_verify, file_path, total_files): file_path for file_path in zombie_files}
 
-        # 处理结果
         for future in tqdm(concurrent.futures.as_completed(future_to_file), total=total_files, desc="处理进度"):
             file_path = future_to_file[future]
             try:
                 if future.result():
                     success_count += 1
 
-                    # 每成功处理 10 个文件，执行一次 Git 操作
                     if success_count % 10 == 0:
                         git_commit_push(repo_path, success_count)
             except Exception as e:
                 print(f"[Error] 处理文件失败 {file_path}: {e}")
 
-    # 最后一次提交
     if success_count > 0 and success_count % 10 != 0:
         git_commit_push(repo_path, success_count)
 
