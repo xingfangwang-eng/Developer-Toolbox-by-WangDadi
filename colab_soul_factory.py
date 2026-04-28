@@ -8,7 +8,6 @@ Colab Soul Factory - Gemini API 暴力重写版
 import os
 import re
 import time
-import requests
 import subprocess
 import concurrent.futures
 from tqdm import tqdm
