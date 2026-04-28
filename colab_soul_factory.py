@@ -132,8 +132,8 @@ IMPORTANT: Output ONLY the Markdown content. Do NOT include any introductory tex
     max_retries = 10
     for attempt in range(max_retries):
         try:
-            # 严格限速：每次请求前等待 4.3 秒，确保每分钟 ≤ 14 次请求
-            time.sleep(4.3)
+            # 严格限速：每次请求前等待 4.5 秒，确保每分钟 ≤ 14 次请求
+            time.sleep(4.5)
 
             response = model.generate_content(
                 contents=[{"role": "user", "parts": [user_prompt]}],
@@ -141,7 +141,13 @@ IMPORTANT: Output ONLY the Markdown content. Do NOT include any introductory tex
                     "system_instruction": system_prompt,
                     "temperature": 0.7,
                     "max_output_tokens": 2000
-                }
+                },
+                safety_settings=[
+                    {"category": "HARM_CATEGORY_HARASSMENT", "threshold": "BLOCK_NONE"},
+                    {"category": "HARM_CATEGORY_HATE_SPEECH", "threshold": "BLOCK_NONE"},
+                    {"category": "HARM_CATEGORY_SEXUALLY_EXPLICIT", "threshold": "BLOCK_NONE"},
+                    {"category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": "BLOCK_NONE"}
+                ]
             )
 
             generated_content = response.text
