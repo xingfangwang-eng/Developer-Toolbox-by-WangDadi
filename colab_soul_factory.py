@@ -34,7 +34,10 @@ MAX_WORKERS = 1  # 单线程运行，严格控制请求数
 
 # 初始化 Gemini
 genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel(MODEL_NAME)
+model = genai.GenerativeModel(
+    MODEL_NAME,
+    system_instruction={"role": "system", "parts": ["You are a helpful assistant."]}
+)
 
 # 占位符和禁止词汇
 PLACEHOLDER_PATTERNS = [
@@ -135,10 +138,12 @@ IMPORTANT: Output ONLY the Markdown content. Do NOT include any introductory tex
             # 严格限速：每次请求前等待 4.5 秒，确保每分钟 ≤ 14 次请求
             time.sleep(4.5)
 
+            # 构建完整的提示（包含语言指令）
+            full_prompt = f"{system_prompt}\n\n{user_prompt}"
+
             response = model.generate_content(
-                contents=[{"role": "user", "parts": [user_prompt]}],
+                contents=[{"role": "user", "parts": [full_prompt]}],
                 generation_config={
-                    "system_instruction": system_prompt,
                     "temperature": 0.7,
                     "max_output_tokens": 2000
                 },
