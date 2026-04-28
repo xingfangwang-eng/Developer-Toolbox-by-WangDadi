@@ -1,106 +1,124 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Batch Pusher - GitHub 实时同步脚本
+每隔1小时自动扫描文件夹变动，超过50个文件变更则自动提交推送
+"""
+
 import os
-import subprocess
 import time
-from tqdm import tqdm
+import subprocess
+from datetime import datetime
 
-# 全局变量
-ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
-BATCH_SIZE = 3
-RETRY_DELAY = 10  # 重试等待时间（秒）
+GIT_REPO_PATH = r"E:\Developer-Toolbox-by-WangDadi"
+COMMIT_THRESHOLD = 50
+CHECK_INTERVAL_HOURS = 1
 
-# 获取根目录下的项目文件夹
-def get_project_folders():
-    project_folders = []
-    for item in os.listdir(ROOT_DIR):
-        item_path = os.path.join(ROOT_DIR, item)
-        # 只考虑目录，排除指定的文件夹
-        if os.path.isdir(item_path):
-            # 排除隐藏文件夹和特定文件夹
-            if not item.startswith('.') and item not in ['venv', '__pycache__']:
-                project_folders.append(item)
-    return project_folders
-
-# 执行 git 命令
-def run_git_command(cmd, cwd):
+def get_changed_files(repo_path):
+    """获取所有已跟踪文件的变更状态"""
     try:
-        result = subprocess.run(cmd, cwd=cwd, shell=True, capture_output=True, text=True)
-        return result.returncode == 0, result.stdout, result.stderr
+        result = subprocess.run(
+            ["git", "status", "--porcelain"],
+            cwd=repo_path,
+            capture_output=True,
+            text=True,
+            encoding='utf-8'
+        )
+        if result.returncode != 0:
+            print(f"⚠️ Git 命令执行失败: {result.stderr}")
+            return []
+        
+        changed_files = []
+        for line in result.stdout.strip().split('\n'):
+            if line:
+                file_path = line[3:].strip()
+                changed_files.append(file_path)
+        return changed_files
     except Exception as e:
-        return False, "", str(e)
+        print(f"❌ 获取变更文件失败: {e}")
+        return []
 
-# 推送单个项目
-def push_project(project_name):
-    # 执行 git add [文件夹名]
-    success, stdout, stderr = run_git_command(f'git add {project_name}', ROOT_DIR)
-    if not success:
-        print(f"❌ {project_name}: git add 失败 - {stderr}")
+def git_add_commit_push(repo_path, changed_files):
+    """执行 git add, commit, push"""
+    try:
+        print(f"\n📦 开始提交 {len(changed_files)} 个文件...")
+        
+        subprocess.run(["git", "add", "."], cwd=repo_path, check=True)
+        
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        commit_message = f"🤖 Auto-sync: {timestamp} - {len(changed_files)} files updated"
+        
+        result = subprocess.run(
+            ["git", "commit", "-m", commit_message],
+            cwd=repo_path,
+            capture_output=True,
+            text=True,
+            encoding='utf-8'
+        )
+        
+        if result.returncode != 0:
+            if "nothing to commit" in result.stdout:
+                print("📝 没有需要提交的内容")
+                return False
+            print(f"⚠️ Commit 失败: {result.stderr}")
+            return False
+        
+        print(f"✅ Commit 成功: {commit_message}")
+        
+        print("🚀 正在推送到 GitHub...")
+        result = subprocess.run(
+            ["git", "push", "origin", "main"],
+            cwd=repo_path,
+            capture_output=True,
+            text=True,
+            encoding='utf-8'
+        )
+        
+        if result.returncode != 0:
+            print(f"⚠️ Push 失败: {result.stderr}")
+            return False
+        
+        print("✅ 推送成功！GitHub 页面已更新")
+        return True
+        
+    except subprocess.CalledProcessError as e:
+        print(f"❌ Git 操作失败: {e}")
         return False
-    
-    return True
+    except Exception as e:
+        print(f"❌ 未知错误: {e}")
+        return False
 
-# 主函数
 def main():
-    # 获取项目文件夹
-    project_folders = get_project_folders()
-    total_projects = len(project_folders)
-    total_batches = (total_projects + BATCH_SIZE - 1) // BATCH_SIZE
+    print("=" * 60)
+    print("Batch Pusher - GitHub 实时同步启动")
+    print("=" * 60)
+    print(f"📁 仓库路径: {GIT_REPO_PATH}")
+    print(f"📊 提交阈值: {COMMIT_THRESHOLD} 个文件")
+    print(f"⏰ 检查间隔: {CHECK_INTERVAL_HOURS} 小时")
+    print("=" * 60)
     
-    print(f"发现 {total_projects} 个项目，将分为 {total_batches} 批处理")
-    print("\n扫描到的项目列表：")
-    for i, project in enumerate(project_folders, 1):
-        print(f"{i}. {project}")
-    
-    # 分批处理
-    for batch_idx in range(total_batches):
-        start_idx = batch_idx * BATCH_SIZE
-        end_idx = min((batch_idx + 1) * BATCH_SIZE, total_projects)
-        batch_projects = project_folders[start_idx:end_idx]
+    while True:
+        check_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        print(f"\n{'='*60}")
+        print(f"🕐 [{check_time}] 开始检查文件变动...")
         
-        print(f"\n[Batch {batch_idx + 1}/{total_batches}] 处理项目: {', '.join(batch_projects)}")
+        changed_files = get_changed_files(GIT_REPO_PATH)
+        changed_count = len(changed_files)
         
-        # 处理当前批次
-        batch_success = False
-        retry_count = 0
+        print(f"📝 发现 {changed_count} 个已跟踪文件发生变动")
         
-        while not batch_success and retry_count < 5:  # 最多重试 5 次
-            batch_success = True
+        if changed_count >= COMMIT_THRESHOLD:
+            print(f"🚀 超过阈值 ({COMMIT_THRESHOLD})，触发自动提交！")
             
-            # 添加批次中的所有项目
-            for project in tqdm(batch_projects, desc="添加项目"):
-                if not push_project(project):
-                    batch_success = False
-                    break
-            
-            if batch_success:
-                # 执行 git commit
-                success, stdout, stderr = run_git_command('git commit -m "Deploy: Souls injected into 3 projects"', ROOT_DIR)
-                if not success:
-                    # 可能没有需要提交的更改
-                    if "nothing to commit" in stderr or "nothing to commit" in stdout:
-                        print(f"[Batch {batch_idx + 1}] No changes, skipping to next.")
-                        batch_success = True  # 无变动视为成功
-                    else:
-                        print(f"❌ git commit 失败 - {stderr}")
-                        batch_success = False
-                
-                if batch_success and not ("nothing to commit" in stderr or "nothing to commit" in stdout):
-                    # 执行 git push -f 强制推送
-                    success, stdout, stderr = run_git_command('git push -f origin main', ROOT_DIR)
-                    if not success:
-                        print(f"❌ git push 失败 - {stderr}")
-                        batch_success = False
-            
-            if not batch_success:
-                retry_count += 1
-                print(f"❌ 批次推送失败，{RETRY_DELAY} 秒后重试... (尝试 {retry_count}/5)")
-                time.sleep(RETRY_DELAY)
-        
-        if batch_success:
-            print(f"✅ [Batch {batch_idx + 1}/{total_batches}] 推送成功")
+            if git_add_commit_push(GIT_REPO_PATH, changed_files):
+                print(f"✅ [{check_time}] 同步完成！")
+            else:
+                print(f"❌ [{check_time}] 同步失败！")
         else:
-            print(f"❌ [Batch {batch_idx + 1}/{total_batches}] 推送失败，已达到最大重试次数")
-    
-    print("\n所有批次处理完成！")
+            print(f"📝 变动文件不足，等待下次检查...")
+        
+        print(f"\n⏰ 下次检查时间: {CHECK_INTERVAL_HOURS} 小时后")
+        time.sleep(CHECK_INTERVAL_HOURS * 3600)
 
 if __name__ == "__main__":
     main()
