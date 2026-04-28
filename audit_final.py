@@ -1,119 +1,128 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+审计脚本 - 检测僵尸页面
+地毯式搜索所有 .md 文件，统计僵尸页面数量
+"""
+
 import os
+import re
+from collections import defaultdict
 
-# 全局变量
-ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+# 占位符关键词
+ZOMBIE_KEYWORDS = [
+    'Describe feature', 'Step 1', 'Practice 1',
+    'Beschreiben', 'Schritt', 'Paso', '機能',
+    '説明する', 'ステップ', 'Describir', 'función'
+]
 
-# 检测页面类型
-def detect_page_type(content):
-    # 僵尸页面检测：包含原始占位符
-    zombie_indicators = [
-        "Describe feature",
-        "Step 1",
-        "Beschreiben Funktion",
-        "Schritt 1",
-        "説明する",
-        "ステップ 1",
-        "Describir función",
-        "Paso 1"
-    ]
-    
-    for indicator in zombie_indicators:
-        if indicator in content:
-            return "Zombie"
-    
-    # 灵魂页面检测：不含占位符且长度超过 300 字符
-    if len(content) > 300:
-        return "Soul"
-    
-    # 其他情况
-    return "Other"
+# 语言目录
+LANG_DIRS = ['de', 'es', 'ja']
 
-# 扫描项目
-def scan_projects():
-    total_files = 0
-    soul_pages = 0
-    zombie_pages = 0
-    other_pages = 0
+def is_zombie(content):
+    """检测内容是否包含占位符"""
+    content_lower = content.lower()
+    for keyword in ZOMBIE_KEYWORDS:
+        if keyword.lower() in content_lower:
+            return True
+    return False
+
+def detect_language(file_path):
+    """检测文件语言"""
+    for lang in LANG_DIRS:
+        if f'/{lang}/' in file_path.replace('\\', '/'):
+            return lang.upper()
+    return 'EN'
+
+def audit_repository(root_path):
+    """审计仓库"""
+    stats = {
+        'total': 0,
+        'zombie': 0,
+        'soul': 0,
+        'by_lang': defaultdict(lambda: {'total': 0, 'zombie': 0, 'soul': 0})
+    }
+    zombie_files = []
     
-    # 递归扫描所有项目的 manual/ 文件夹
-    for root, dirs, files in os.walk(ROOT_DIR):
-        # 跳过不需要的文件夹
-        dirs[:] = [d for d in dirs if d not in ['.git', 'venv', '__pycache__']]
+    print(f"开始审计: {root_path}")
+    print("=" * 60)
+    
+    for root, dirs, files in os.walk(root_path):
+        # 跳过隐藏目录
+        dirs[:] = [d for d in dirs if not d.startswith('.')]
         
-        # 检查是否在 manual 文件夹中
-        if 'manual' in root.split(os.sep):
-            for file in files:
-                if file.endswith('.md'):
-                    file_path = os.path.join(root, file)
-                    total_files += 1
+        for file in files:
+            if file.endswith('.md'):
+                file_path = os.path.join(root, file)
+                stats['total'] += 1
+                
+                # 检测语言
+                lang = detect_language(file_path)
+                stats['by_lang'][lang]['total'] += 1
+                
+                try:
+                    with open(file_path, 'r', encoding='utf-8-sig', errors='replace') as f:
+                        content = f.read()
                     
-                    # 读取文件内容
-                    try:
-                        with open(file_path, 'r', encoding='utf-8-sig', errors='replace') as f:
-                            content = f.read()
-                        
-                        # 检测页面类型
-                        page_type = detect_page_type(content)
-                        if page_type == "Soul":
-                            soul_pages += 1
-                        elif page_type == "Zombie":
-                            zombie_pages += 1
-                        else:
-                            other_pages += 1
-                    except Exception as e:
-                        print(f"读取文件失败 {file_path}: {e}")
-                        other_pages += 1
+                    if is_zombie(content):
+                        stats['zombie'] += 1
+                        stats['by_lang'][lang]['zombie'] += 1
+                        zombie_files.append(file_path)
+                    else:
+                        stats['soul'] += 1
+                        stats['by_lang'][lang]['soul'] += 1
+                except Exception as e:
+                    print(f"[Error] 读取失败: {file_path} - {e}")
     
-    return total_files, soul_pages, zombie_pages, other_pages
+    return stats, zombie_files
 
-# 生成报表
-def generate_report(total_files, soul_pages, zombie_pages, other_pages):
-    # 计算资产完备率
-    if total_files > 0:
-        completion_rate = (soul_pages / total_files) * 100
-    else:
-        completion_rate = 0
-    
-    # 打印表格
+def print_report(stats, zombie_files):
+    """打印审计报告"""
     print("\n" + "=" * 60)
-    print("🎯 资产审计报表")
-    print("=" * 60)
-    print(f"| {'指标':<10} | {'数值':<15} |")
-    print("|" + "-" * 11 + "|" + "-" * 16 + "|")
-    print(f"| {'总文件数':<10} | {total_files:<15} |")
-    print(f"| {'灵魂页面数':<10} | {soul_pages:<15} |")
-    print(f"| {'僵尸页面数':<10} | {zombie_pages:<15} |")
-    print(f"| {'其他页面数':<10} | {other_pages:<15} |")
-    print(f"| {'资产完备率':<10} | {completion_rate:.2f}%{'':<8} |")
+    print("审计报告")
     print("=" * 60)
     
-    # 打印详细信息
-    print(f"\n📊 审计结果分析:")
-    print(f"- 总审计文件数: {total_files}")
-    print(f"- 有效钓鱼资产: {soul_pages} (灵魂页面)")
-    print(f"- 需要补救的垃圾: {zombie_pages} (僵尸页面)")
-    print(f"- 其他页面: {other_pages}")
-    print(f"- 资产完备率: {completion_rate:.2f}%")
+    print(f"\n📊 总体统计:")
+    print(f"   总文件数: {stats['total']}")
+    print(f"   🧟 僵尸页面: {stats['zombie']}")
+    print(f"   ✅ 灵魂页面: {stats['soul']}")
     
-    if completion_rate >= 90:
-        print("\n🎉 优秀！资产完备率达到 90% 以上，钓鱼资产质量良好。")
-    elif completion_rate >= 70:
-        print("\n✅ 良好！资产完备率达到 70% 以上，钓鱼资产质量不错。")
-    elif completion_rate >= 50:
-        print("\n⚠️  一般！资产完备率达到 50% 以上，需要进一步优化。")
-    else:
-        print("\n❌ 警告！资产完备率低于 50%，需要大量补救工作。")
+    if stats['total'] > 0:
+        soul_rate = (stats['soul'] / stats['total']) * 100
+        print(f"   灵魂率: {soul_rate:.2f}%")
+    
+    print(f"\n📈 按语言统计:")
+    for lang in sorted(stats['by_lang'].keys()):
+        lang_stats = stats['by_lang'][lang]
+        print(f"   {lang}: 总计 {lang_stats['total']} | 僵尸 {lang_stats['zombie']} | 灵魂 {lang_stats['soul']}")
+    
+    if zombie_files:
+        print(f"\n🧟 前 10 个僵尸文件:")
+        for i, file_path in enumerate(zombie_files[:10], 1):
+            rel_path = os.path.relpath(file_path)
+            print(f"   {i}. {rel_path}")
+        
+        if len(zombie_files) > 10:
+            print(f"   ... 还有 {len(zombie_files) - 10} 个僵尸文件")
+    
+    print("\n" + "=" * 60)
 
-# 主函数
 def main():
-    print("开始资产审计...")
-    print("正在扫描所有项目的 manual/ 文件夹...")
+    # 获取当前目录
+    root_path = os.getcwd()
     
-    # 扫描项目
-    total_files, soul_pages, zombie_pages, other_pages = scan_projects()
+    # 执行审计
+    stats, zombie_files = audit_repository(root_path)
     
-    # 生成报表
-    generate_report(total_files, soul_pages, zombie_pages, other_pages)
+    # 打印报告
+    print_report(stats, zombie_files)
+    
+    # 保存僵尸文件列表
+    if zombie_files:
+        with open('zombie_files.txt', 'w', encoding='utf-8') as f:
+            for file_path in zombie_files:
+                f.write(f"{file_path}\n")
+        print(f"\n✅ 僵尸文件列表已保存到: zombie_files.txt")
 
 if __name__ == "__main__":
     main()
