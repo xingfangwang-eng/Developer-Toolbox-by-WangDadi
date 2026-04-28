@@ -25,3 +25,12 @@ testproject is a professional tool that helps solve problems in related fields.
 ## 🚀 更多工具 (More Tools)
 
 - **查看更多自动化工具 (View More)**: `https://www.wangdadi.xyz/?utm_source=github_local&lang=ja`
+
+### 🔗 クイックスタート (Quick Start)
+
+- **[🏥 Google Colab でオンラインデモを実行する](https://colab.research.google.com/github/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/diagnosis_engine.ipynb)**  <-- *AI によるツール効果のリアルタイムプレビュー*
+
+- ** `https://www.wangdadi.xyz/?utm_source=github_local` **
+
+- ** `https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/issues` **
+

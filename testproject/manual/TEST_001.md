@@ -24,9 +24,15 @@ testproject is a professional tool that helps solve problems in related fields b
 2. **Practice 2:** Utilize testproject's real-time monitoring capabilities to stay informed about industry changes and emerging threats.
 
 ## Related Resources
-- [Official Documentation](https://www.wangdadi.xyz
-- [GitHub Repository](https://github.com/xingfangwang-eng/testproject)
-- [API Reference](https://www.wangdadi.xyz
+
+### 🔗 Quick Start (Quick Start)
+
+- **[🏥 Run Online Demo in Google Colab](https://colab.research.google.com/github/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/diagnosis_engine.ipynb)**  <-- *Real-time AI preview of tool effects*
+
+- ** `https://www.wangdadi.xyz/?utm_source=github_local` **
+
+- ** `https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/issues` **
+
 
 ## Navigation
 - [Back to WangDadi Toolbox Index](../README.md)
@@ -34,4 +40,13 @@ testproject is a professional tool that helps solve problems in related fields b
 ---
 
 ## Related Resources
-- 👉 `https://www.wangdadi.xyz/?utm_source=github_local&lang=en`
+
+### 🔗 Quick Start (Quick Start)
+
+- **[🏥 Run Online Demo in Google Colab](https://colab.research.google.com/github/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/diagnosis_engine.ipynb)**  <-- *Real-time AI preview of tool effects*
+
+- ** `https://www.wangdadi.xyz/?utm_source=github_local` **
+
+- ** `https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/issues` **
+
+

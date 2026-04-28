@@ -23,9 +23,15 @@ testproject ist ein professionelles Tool, das bei der Lösung von Problemen in v
 - Übung 2: Beschreiben Sie Übung 2
 
 ## Verwandte Ressourcen
-- [Offizielle Dokumentation](https://www.wangdadi.xyz
-- [GitHub-Repository](https://github.com/xingfangwang-eng/testproject)
-- [API-Referenz](https://www.wangdadi.xyz
+
+### 🔗 Schnellstart (Quick Start)
+
+- **[🏥 Online-Demo in Google Colab ausführen](https://colab.research.google.com/github/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/diagnosis_engine.ipynb)**  <-- *KI-gestützte Echtzeit-Vorschau der Tool-Effekte*
+
+- ** `https://www.wangdadi.xyz/?utm_source=github_local` **
+
+- ** `https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/issues` **
+
 
 ## Navigation
 - [Zurück zum WangDadi Toolbox Index](../README.md)
