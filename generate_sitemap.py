@@ -11,12 +11,9 @@ from xml.dom import minidom
 
 ROOT_DIR = r"E:\Developer-Toolbox-by-WangDadi"
 OUTPUT_DIR = ROOT_DIR
-GITHUB_REPO = "xingfangwang-eng/Developer-Toolbox-by-WangDadi"
 
-# 选择使用 GitHub Pages 链接还是 Raw 链接
-# 对于 SEO 来说，GitHub Pages 链接更合适
-BASE_URL = f"https://{GITHUB_REPO.replace('/', '.github.io/')}"
-# BASE_URL = f"https://raw.githubusercontent.com/{GITHUB_REPO}/main"
+# 新域名：docs.wangdadi.xyz
+BASE_URL = "https://docs.wangdadi.xyz"
 
 def find_markdown_files(root_dir):
     """查找所有 Markdown 文件"""
