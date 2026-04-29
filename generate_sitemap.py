@@ -1,84 +1,128 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Sitemap Generator - 生成 Google Sitemap 格式的站点地图
+自动处理超过 5000 条目的情况
+"""
+
 import os
-import json
-import time
+import xml.etree.ElementTree as ET
+from xml.dom import minidom
 
-# 全局变量
-ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
-PROJECTS_FILE = os.path.join(ROOT_DIR, 'projects.json')
-SITEMAP_FILE = os.path.join(ROOT_DIR, 'sitemap.xml')
-BASE_DOMAIN = 'wangdadi.xyz'
+ROOT_DIR = r"E:\Developer-Toolbox-by-WangDadi"
+OUTPUT_DIR = ROOT_DIR
+GITHUB_REPO = "xingfangwang-eng/Developer-Toolbox-by-WangDadi"
 
-# 读取项目文件
-def load_projects():
-    if os.path.exists(PROJECTS_FILE):
-        try:
-            with open(PROJECTS_FILE, 'r', encoding='utf-8-sig') as f:
-                return json.load(f)
-        except Exception as e:
-            print(f"加载项目文件失败: {e}")
-            return []
-    else:
-        print(f"项目文件不存在: {PROJECTS_FILE}")
-        return []
+# 选择使用 GitHub Pages 链接还是 Raw 链接
+# 对于 SEO 来说，GitHub Pages 链接更合适
+BASE_URL = f"https://{GITHUB_REPO.replace('/', '.github.io/')}"
+# BASE_URL = f"https://raw.githubusercontent.com/{GITHUB_REPO}/main"
 
-# 生成 sitemap.xml
-def generate_sitemap(projects):
-    # 生成 XML 头部
-    xml_content = '''<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-'''
+def find_markdown_files(root_dir):
+    """查找所有 Markdown 文件"""
+    md_files = []
+    for dirpath, dirnames, filenames in os.walk(root_dir):
+        if '.git' in dirpath:
+            continue
+        for filename in filenames:
+            if filename.endswith('.md'):
+                # 获取相对路径
+                rel_path = os.path.relpath(os.path.join(dirpath, filename), root_dir)
+                md_files.append(rel_path)
+    return md_files
+
+def generate_sitemap_entries(file_list):
+    """生成 sitemap 条目"""
+    urlset = ET.Element('urlset', xmlns='http://www.sitemaps.org/schemas/sitemap/0.9')
     
-    # 添加每个项目的 URL
-    for project in projects:
-        project_name = project.get('name', '').lower().replace(' ', '-')
-        if project_name:
-            subdomain_url = f"https://{project_name}.{BASE_DOMAIN}"
-            lastmod = time.strftime('%Y-%m-%d')
-            
-            xml_content += f'''
-    <url>
-        <loc>{subdomain_url}</loc>
-        <lastmod>{lastmod}</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-'''
+    for rel_path in file_list:
+        # 将 Windows 路径转换为 URL 路径
+        url_path = rel_path.replace('\\', '/')
+        # GitHub Pages 链接
+        loc = f"{BASE_URL}/{url_path}"
+        
+        url = ET.SubElement(urlset, 'url')
+        loc_elem = ET.SubElement(url, 'loc')
+        loc_elem.text = loc
+        
+        # 添加优先级（可选）
+        priority = ET.SubElement(url, 'priority')
+        priority.text = '0.7'
     
-    # 关闭 urlset 标签
-    xml_content += '''</urlset>
-'''
-    
-    return xml_content
+    return urlset
 
-# 保存 sitemap.xml
-def save_sitemap(xml_content):
-    try:
-        with open(SITEMAP_FILE, 'w', encoding='utf-8') as f:
+def prettify_xml(element):
+    """美化 XML 输出"""
+    rough_string = ET.tostring(element, 'utf-8')
+    reparsed = minidom.parseString(rough_string)
+    return reparsed.toprettyxml(indent="  ", encoding='UTF-8')
+
+def generate_sitemaps(file_list, max_entries=5000):
+    """生成多个 sitemap 文件"""
+    total_files = len(file_list)
+    num_sitemaps = (total_files // max_entries) + 1 if total_files % max_entries != 0 else total_files // max_entries
+    
+    sitemap_files = []
+    
+    for i in range(num_sitemaps):
+        start = i * max_entries
+        end = min((i + 1) * max_entries, total_files)
+        chunk = file_list[start:end]
+        
+        filename = f"sitemap_{i + 1}.xml" if i > 0 else "sitemap.xml"
+        filepath = os.path.join(OUTPUT_DIR, filename)
+        
+        urlset = generate_sitemap_entries(chunk)
+        xml_content = prettify_xml(urlset)
+        
+        with open(filepath, 'wb') as f:
             f.write(xml_content)
-        return True
-    except Exception as e:
-        print(f"保存 sitemap.xml 失败: {e}")
-        return False
+        
+        sitemap_files.append(filename)
+        print(f"✅ 生成: {filename} ({len(chunk)} 条目)")
+    
+    return sitemap_files
 
-# 主函数
+def generate_sitemap_index(sitemap_files):
+    """生成 sitemap 索引文件"""
+    sitemapindex = ET.Element('sitemapindex', xmlns='http://www.sitemaps.org/schemas/sitemap/0.9')
+    
+    for sitemap_file in sitemap_files:
+        sitemap = ET.SubElement(sitemapindex, 'sitemap')
+        loc = ET.SubElement(sitemap, 'loc')
+        loc.text = f"{BASE_URL}/{sitemap_file}"
+    
+    xml_content = prettify_xml(sitemapindex)
+    filepath = os.path.join(OUTPUT_DIR, 'sitemap_index.xml')
+    
+    with open(filepath, 'wb') as f:
+        f.write(xml_content)
+    
+    print(f"✅ 生成: sitemap_index.xml")
+
 def main():
-    print("开始生成 sitemap.xml...")
+    print("=" * 60)
+    print("Sitemap Generator")
+    print("=" * 60)
     
-    # 加载项目
-    projects = load_projects()
-    total_projects = len(projects)
-    print(f"已加载 {total_projects} 个项目")
+    # 1. 查找所有 Markdown 文件
+    print("🔍 扫描所有 Markdown 文件...")
+    md_files = find_markdown_files(ROOT_DIR)
+    print(f"📊 发现 {len(md_files)} 个 Markdown 文件")
     
-    # 生成 sitemap
-    xml_content = generate_sitemap(projects)
+    # 2. 生成 sitemap 文件
+    print("\n📝 生成 Sitemap 文件...")
+    sitemap_files = generate_sitemaps(md_files)
     
-    # 保存 sitemap
-    if save_sitemap(xml_content):
-        print(f"sitemap.xml 生成成功！")
-        print(f"文件位置: {SITEMAP_FILE}")
-        print(f"包含 {total_projects} 个子域名")
-    else:
-        print("sitemap.xml 生成失败！")
+    # 3. 生成索引文件
+    print("\n📋 生成 Sitemap 索引...")
+    generate_sitemap_index(sitemap_files)
+    
+    print("\n" + "=" * 60)
+    print(f"✅ Sitemap 生成完成！")
+    print(f"📁 生成 {len(sitemap_files)} 个 sitemap 文件")
+    print(f"📄 总条目数: {len(md_files)}")
+    print("=" * 60)
 
 if __name__ == "__main__":
     main()
