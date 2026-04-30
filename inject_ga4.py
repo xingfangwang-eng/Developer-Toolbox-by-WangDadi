@@ -9,12 +9,12 @@ GA4_CODE = """
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-WC4677QJMF', {
-    'custom_map': {
+  gtag('config', 'G-WC4677QJMF', {{
+    'custom_map': {{
       'dimension1': 'project_name'
-    },
-    'project_name': '{project_name}'
-  });
+    }},
+    'project_name': 'PROJECT_NAME_PLACEHOLDER'
+  }});
 </script>
 """
 
@@ -44,7 +44,7 @@ def inject_ga4():
             print(f"Progress: {i}/{len(md_files)} - Injected: {injected}, Skipped: {skipped}, Errors: {errors}")
 
         try:
-            with open(file_path, 'r', encoding='utf-8', errors='replace') as f:
+            with open(file_path, 'r', encoding='utf-8') as f:
                 content = f.read()
 
             if has_ga4_code(content):
@@ -52,7 +52,7 @@ def inject_ga4():
                 continue
 
             project_name = get_project_name(file_path)
-            ga4_code = GA4_CODE.format(project_name=project_name)
+            ga4_code = GA4_CODE.replace('PROJECT_NAME_PLACEHOLDER', project_name)
 
             new_content = content.rstrip() + '\n\n' + ga4_code
 
@@ -64,7 +64,7 @@ def inject_ga4():
         except Exception as e:
             errors += 1
             if errors < 10:
-                print(f"❌ Error processing {file_path}: {e}")
+                print(f"❌ Error processing {file_path}: {type(e).__name__}: {e}")
 
     print(f"\n{'='*60}")
     print(f"✅ Injected: {injected} files")
