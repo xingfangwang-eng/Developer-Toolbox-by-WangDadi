@@ -2,11 +2,13 @@
 import os
 import requests
 import re
+import subprocess
 from pathlib import Path
 
 OLLAMA_API = "http://127.0.0.1:11434/api/generate"
 MODEL = "llama3"
 TIMEOUT = 300
+PUSH_INTERVAL = 30
 
 CONTAMINATION_WORDS = ['概述', '核心功能', '快速开始', '步骤', '专家建议', '性能优化']
 
@@ -46,6 +48,17 @@ def rewrite_to_pure_japanese(content):
     except Exception as e:
         print(f"Translation error: {e}")
     return content
+
+def git_push():
+    try:
+        subprocess.run(['git', 'add', '-A'], cwd=BASE_DIR, check=True)
+        subprocess.run(['git', 'commit', '-m', f'🌏 JA surgical clean: batch push'], cwd=BASE_DIR, check=True)
+        subprocess.run(['git', 'push'], cwd=BASE_DIR, check=True)
+        print(f"   🚀 Pushed to GitHub!")
+        return True
+    except Exception as e:
+        print(f"   ❌ Git push failed: {e}")
+        return False
 
 def main():
     print("🚀 JA Surgical Clean - Starting...")
@@ -94,10 +107,18 @@ def main():
                 success += 1
                 print(f"   ✅ Done: {file_path.name}")
 
+                if success % PUSH_INTERVAL == 0:
+                    print(f"\n   📦 Reached {success} files, pushing to GitHub...")
+                    git_push()
+
             except Exception as e:
                 log.write(f"ERROR: {file_path} - {e}\n")
                 error += 1
                 print(f"   ❌ Error: {e}")
+
+        if success % PUSH_INTERVAL != 0 and success > 0:
+            print(f"\n   📦 Final push ({success} files)...")
+            git_push()
 
         log.write(f"\n{'='*60}\n")
         log.write(f"Total Contaminated: {len(contaminated)}\n")
