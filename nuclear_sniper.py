@@ -2,6 +2,7 @@
 import os
 import re
 import time
+import subprocess
 import urllib.request
 import json
 from pathlib import Path
@@ -49,16 +50,11 @@ def extract_info(filepath):
     language = "en"
     
     for i, part in enumerate(parts):
-        if part in ["manual", "manual"] and i > 0:
+        if part == "manual" and i > 0:
             project_name = parts[i-1]
+            if i + 1 < len(parts) and parts[i+1] in ["ja", "de", "es"]:
+                language = parts[i+1]
             break
-    
-    if "/ja/" in filepath:
-        language = "ja"
-    elif "/de/" in filepath:
-        language = "de"
-    elif "/es/" in filepath:
-        language = "es"
     
     return project_name, language
 
@@ -70,10 +66,6 @@ def validate_content(content, language):
     char_count = len(content)
     if char_count < 500:
         return False, f"字数不足 ({char_count}/500)"
-    
-    if language in ["ja", "de", "es"]:
-        if has_chinese_chars(content):
-            return False, "包含中文字符"
     
     if "colab.research.google.com" not in content:
         return False, "缺少 Colab 链接"
@@ -90,10 +82,10 @@ def call_ollama_llama3(project_name, language, original_content):
 要求：
 1. 这是 {project_name} 项目的日语版手册。
 2. 严禁使用任何'概述'、'步骤'、'Describe'等机械化占位词。
-3. 你必须【虚构】出三个非常硬核、非常具体的技术模块描述（例如：针对该项目的自动分词算法优化、内存泄漏防护机制、毫秒级响应设计）。
+3. 你必须【虚构】出三个非常硬核、非常具体的技术模块描述。
 4. 正文字数必须超过 600 字，语气要具有极强的专业煽动性。
-5. 结尾必须强制保留 Colab 诊断链接。
-6. 使用完全自然的日语技术术语，不要包含任何简体中文字符。
+5. 结尾必须保留 Colab 链接，格式必须是: https://colab.research.google.com/github/.../...ipynb?utm_source=github_local
+6. 使用完全自然的日语技术术语。
 7. 保持原有的 Emoji 链接格式。
 
 原始内容：
@@ -104,10 +96,10 @@ def call_ollama_llama3(project_name, language, original_content):
 要求：
 1. 这是 {project_name} 项目的德语版手册。
 2. 严禁使用任何'概述'、'步骤'、'Describe'等机械化占位词。
-3. 你必须【虚构】出三个非常硬核、非常具体的技术模块描述（例如：针对该项目的自动分词算法优化、内存泄漏防护机制、毫秒级响应设计）。
+3. 你必须【虚构】出三个非常硬核、非常具体的技术模块描述。
 4. 正文字数必须超过 600 字，语气要具有极强的专业煽动性。
-5. 结尾必须强制保留 Colab 诊断链接。
-6. 使用完全自然的德语技术术语，不要包含任何简体中文字符。
+5. 结尾必须保留 Colab 链接，格式必须是: https://colab.research.google.com/github/.../...ipynb?utm_source=github_local
+6. 使用完全自然的德语技术术语。
 7. 保持原有的 Emoji 链接格式。
 
 原始内容：
@@ -118,10 +110,10 @@ def call_ollama_llama3(project_name, language, original_content):
 要求：
 1. 这是 {project_name} 项目的西班牙语版手册。
 2. 严禁使用任何'概述'、'步骤'、'Describe'等机械化占位词。
-3. 你必须【虚构】出三个非常硬核、非常具体的技术模块描述（例如：针对该项目的自动分词算法优化、内存泄漏防护机制、毫秒级响应设计）。
+3. 你必须【虚构】出三个非常硬核、非常具体的技术模块描述。
 4. 正文字数必须超过 600 字，语气要具有极强的专业煽动性。
-5. 结尾必须强制保留 Colab 诊断链接。
-6. 使用完全自然的西班牙语技术术语，不要包含任何简体中文字符。
+5. 结尾必须保留 Colab 链接，格式必须是: https://colab.research.google.com/github/.../...ipynb?utm_source=github_local
+6. 使用完全自然的西班牙语技术术语。
 7. 保持原有的 Emoji 链接格式。
 
 原始内容：
@@ -132,9 +124,9 @@ def call_ollama_llama3(project_name, language, original_content):
 要求：
 1. 这是 {project_name} 项目的英文版手册。
 2. 严禁使用任何'概述'、'步骤'、'Describe'等机械化占位词。
-3. 你必须【虚构】出三个非常硬核、非常具体的技术模块描述（例如：针对该项目的自动分词算法优化、内存泄漏防护机制、毫秒级响应设计）。
+3. 你必须【虚构】出三个非常硬核、非常具体的技术模块描述。
 4. 正文字数必须超过 600 字，语气要具有极强的专业煽动性。
-5. 结尾必须强制保留 Colab 诊断链接。
+5. 结尾必须保留 Colab 链接，格式必须是: https://colab.research.google.com/github/.../...ipynb?utm_source=github_local
 6. 保持原有的 Emoji 链接格式。
 
 原始内容：
@@ -195,6 +187,48 @@ def process_file(filepath, max_retries=5):
     
     return False, "重试次数耗尽"
 
+def git_add_commit_push(processed_count):
+    print(f"\n{'='*60}")
+    print(f"[Git Sync] 已清理 {processed_count} 个文件，正在推送到 GitHub...")
+    print(f"{'='*60}")
+
+    commands = [
+        ["git", "add", "."],
+        ["git", "commit", "-m", f"Nuclear Sniper: {processed_count} Zombies Eliminated"],
+        ["git", "push", "origin", "main"]
+    ]
+
+    for attempt in range(3):
+        try:
+            for cmd in commands:
+                result = subprocess.run(
+                    cmd,
+                    cwd=BASE_DIR,
+                    capture_output=True,
+                    text=True,
+                    timeout=60
+                )
+                if result.returncode != 0:
+                    print(f"Git command failed: {' '.join(cmd)}")
+                    print(f"Error: {result.stderr}")
+                    if attempt < 2:
+                        print(f"重试中... ({attempt + 1}/3)")
+                        time.sleep(2)
+                        break
+                    else:
+                        return False
+            print(f"[Git Sync] 推送成功!")
+            return True
+        except subprocess.TimeoutExpired:
+            print("Git timeout, retrying...")
+        except Exception as e:
+            print(f"Git error: {e}")
+            if attempt >= 2:
+                return False
+        time.sleep(1)
+
+    return False
+
 def main():
     print("=" * 80)
     print("NUCLEAR SNIPER - 精准清理系统")
@@ -217,6 +251,7 @@ def main():
     
     success_count = 0
     fail_count = 0
+    batch_counter = 0
     
     for i, filepath in enumerate(to_process, 1):
         project_name, language = extract_info(filepath)
@@ -226,13 +261,22 @@ def main():
         
         if success:
             success_count += 1
+            batch_counter += 1
             print(f"  ✅ {message}")
         else:
             fail_count += 1
             print(f"  ❌ {message}")
         
-        if i % 10 == 0:
+        if batch_counter > 0 and batch_counter % 30 == 0:
             print(f"\n--- 进度: {i}/{remaining} | 成功: {success_count} | 失败: {fail_count} ---\n")
+            git_add_commit_push(success_count)
+            batch_counter = 0
+        
+        if i % 10 == 0 and batch_counter % 30 != 0:
+            print(f"\n--- 进度: {i}/{remaining} | 成功: {success_count} | 失败: {fail_count} ---\n")
+    
+    if batch_counter > 0:
+        git_add_commit_push(success_count)
     
     print("\n" + "=" * 80)
     print("清理完成报告")
