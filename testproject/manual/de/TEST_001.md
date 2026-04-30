@@ -33,4 +33,20 @@ Um unsere Lösung zu optimieren, müssen Sie die Daten-Traffic-Optimierung durch
 
 ---
 
-👉 `https://www.wangdadi.xyz`
+
+---
+
+### 🔗 Quick Start (Quick Start / Schnellstart)
+
+- ** `https://colab.research.google.com/github/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/diagnosis_engine.ipynb` **
+
+  **KI-gestützte Echtzeit-Vorschau der Tool-Effekte**
+
+- ** `https://www.wangdadi.xyz/?utm_source=github_local&lang=de` **
+
+- ** `https://github.com/xingfangwang-eng/Developer-Toolbox-by-WangDadi/issues` **
+
+
+## Navigation
+
+- [Back to WangDadi Toolbox Index](../../../../README.md)
