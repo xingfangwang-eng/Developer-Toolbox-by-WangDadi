@@ -37,13 +37,14 @@ def inject_ga4():
 
     injected = 0
     skipped = 0
+    errors = 0
 
     for i, file_path in enumerate(md_files):
         if i % 500 == 0:
-            print(f"Progress: {i}/{len(md_files)} - Injected: {injected}, Skipped: {skipped}")
+            print(f"Progress: {i}/{len(md_files)} - Injected: {injected}, Skipped: {skipped}, Errors: {errors}")
 
         try:
-            with open(file_path, 'r', encoding='utf-8') as f:
+            with open(file_path, 'r', encoding='utf-8', errors='replace') as f:
                 content = f.read()
 
             if has_ga4_code(content):
@@ -61,12 +62,15 @@ def inject_ga4():
             injected += 1
 
         except Exception as e:
-            print(f"❌ Error processing {file_path}: {e}")
+            errors += 1
+            if errors < 10:
+                print(f"❌ Error processing {file_path}: {e}")
 
     print(f"\n{'='*60}")
     print(f"✅ Injected: {injected} files")
     print(f"⏭️ Skipped: {skipped} files")
-    print(f"📊 Total: {injected + skipped} files")
+    print(f"❌ Errors: {errors} files")
+    print(f"📊 Total: {injected + skipped + errors} files")
     print(f"{'='*60}")
 
 if __name__ == '__main__':
