@@ -77,59 +77,67 @@ def validate_content(content, language):
 
 def call_ollama_llama3(project_name, language, original_content):
     prompts = {
-        "ja": f"""你是一个全球顶级的 SaaS 架构师和资深技术撰稿人。
+        "ja": f"""您是一位世界级的SaaS架构师和资深技术撰稿人。
 任务：彻底重写该マニュアル（手册）。
 要求：
 1. 这是 {project_name} 项目的日语版手册。
 2. 严禁使用任何'概述'、'步骤'、'Describe'等机械化占位词。
-3. 你必须【虚构】出三个非常硬核、非常具体的技术模块描述。
+3. 您必须【虚构】出三个非常硬核、非常具体的技术模块描述。
 4. 正文字数必须超过 600 字，语气要具有极强的专业煽动性。
-5. 结尾必须保留 Colab 链接，格式必须是: https://colab.research.google.com/github/.../...ipynb?utm_source=github_local
+5. 【关键】在文件结尾必须包含以下格式的 Colab 链接：
+   🚀 [Colabで試す](https://colab.research.google.com/github/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/{project_name}/manual/{language}/{project_name.upper()}_001.ipynb?utm_source=github_local)
+   【注意】链接中必须包含 ?utm_source=github_local 这个精确参数！
 6. 使用完全自然的日语技术术语。
 7. 保持原有的 Emoji 链接格式。
 
 原始内容：
 {original_content}""",
         
-        "de": f"""你是一个全球顶级的 SaaS 架构师和资深技术撰稿人。
+        "de": f"""您是一位世界级的SaaS架构师和资深技术撰稿人。
 任务：彻底重写该 Handbuch（手册）。
 要求：
 1. 这是 {project_name} 项目的德语版手册。
 2. 严禁使用任何'概述'、'步骤'、'Describe'等机械化占位词。
-3. 你必须【虚构】出三个非常硬核、非常具体的技术模块描述。
+3. 您必须【虚构】出三个非常硬核、非常具体的技术模块描述。
 4. 正文字数必须超过 600 字，语气要具有极强的专业煽动性。
-5. 结尾必须保留 Colab 链接，格式必须是: https://colab.research.google.com/github/.../...ipynb?utm_source=github_local
+5. 【关键】在文件结尾必须包含以下格式的 Colab 链接：
+   🚀 [Jetzt auf Colab ausprobieren](https://colab.research.google.com/github/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/{project_name}/manual/{language}/{project_name.upper()}_001.ipynb?utm_source=github_local)
+   【注意】链接中必须包含 ?utm_source=github_local 这个精确参数！
 6. 使用完全自然的德语技术术语。
 7. 保持原有的 Emoji 链接格式。
 
 原始内容：
 {original_content}""",
         
-        "es": f"""你是一个全球顶级的 SaaS 架构师和资深技术撰稿人。
-任务：彻底重写该 manual（手册）。
-要求：
-1. 这是 {project_name} 项目的西班牙语版手册。
-2. 严禁使用任何'概述'、'步骤'、'Describe'等机械化占位词。
-3. 你必须【虚构】出三个非常硬核、非常具体的技术模块描述。
-4. 正文字数必须超过 600 字，语气要具有极强的专业煽动性。
-5. 结尾必须保留 Colab 链接，格式必须是: https://colab.research.google.com/github/.../...ipynb?utm_source=github_local
-6. 使用完全自然的西班牙语技术术语。
-7. 保持原有的 Emoji 链接格式。
+        "es": f"""You are a world-class SaaS architect and senior technical writer.
+Task: Completely rewrite this manual.
+Requirements:
+1. This is the Spanish version manual for the {project_name} project.
+2. NEVER use any mechanical placeholder words like '概述', '步骤', 'Describe'.
+3. You MUST【invent】three very hardcore, very specific technical module descriptions.
+4. Body text must exceed 600 characters with highly professional and compelling tone.
+5. 【CRITICAL】At the end of the file, you MUST include this exact Colab link format:
+   🚀 [Probar en Colab](https://colab.research.google.com/github/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/{project_name}/manual/{language}/{project_name.upper()}_001.ipynb?utm_source=github_local)
+   【NOTE】The link MUST contain ?utm_source=github_local exact parameter!
+6. Use natural Spanish technical terminology.
+7. Keep the original Emoji link format.
 
-原始内容：
+Original content:
 {original_content}""",
         
-        "en": f"""你是一个全球顶级的 SaaS 架构师和资深技术撰稿人。
-任务：彻底重写该 manual（手册）。
-要求：
-1. 这是 {project_name} 项目的英文版手册。
-2. 严禁使用任何'概述'、'步骤'、'Describe'等机械化占位词。
-3. 你必须【虚构】出三个非常硬核、非常具体的技术模块描述。
-4. 正文字数必须超过 600 字，语气要具有极强的专业煽动性。
-5. 结尾必须保留 Colab 链接，格式必须是: https://colab.research.google.com/github/.../...ipynb?utm_source=github_local
-6. 保持原有的 Emoji 链接格式。
+        "en": f"""You are a world-class SaaS architect and senior technical writer.
+Task: Completely rewrite this manual.
+Requirements:
+1. This is the English version manual for the {project_name} project.
+2. NEVER use any mechanical placeholder words like '概述', '步骤', 'Describe'.
+3. You MUST【invent】three very hardcore, very specific technical module descriptions.
+4. Body text must exceed 600 characters with highly professional and compelling tone.
+5. 【CRITICAL】At the end of the file, you MUST include this exact Colab link format:
+   🚀 [Try on Colab](https://colab.research.google.com/github/xingfangwang-eng/Developer-Toolbox-by-WangDadi/blob/main/{project_name}/manual/en/{project_name.upper()}_001.ipynb?utm_source=github_local)
+   【NOTE】The link MUST contain ?utm_source=github_local exact parameter!
+6. Keep the original Emoji link format.
 
-原始内容：
+Original content:
 {original_content}"""
     }
     
@@ -192,42 +200,48 @@ def git_add_commit_push(processed_count):
     print(f"[Git Sync] 已清理 {processed_count} 个文件，正在推送到 GitHub...")
     print(f"{'='*60}")
 
-    commands = [
-        ["git", "add", "."],
-        ["git", "commit", "-m", f"Nuclear Sniper: {processed_count} Zombies Eliminated"],
-        ["git", "push", "origin", "main"]
-    ]
+    try:
+        result = subprocess.run(
+            ["git", "add", "."],
+            cwd=BASE_DIR,
+            capture_output=True,
+            text=True,
+            timeout=60
+        )
+        if result.returncode != 0:
+            print(f"Git add failed: {result.stderr}")
+            return False
 
-    for attempt in range(3):
-        try:
-            for cmd in commands:
-                result = subprocess.run(
-                    cmd,
-                    cwd=BASE_DIR,
-                    capture_output=True,
-                    text=True,
-                    timeout=60
-                )
-                if result.returncode != 0:
-                    print(f"Git command failed: {' '.join(cmd)}")
-                    print(f"Error: {result.stderr}")
-                    if attempt < 2:
-                        print(f"重试中... ({attempt + 1}/3)")
-                        time.sleep(2)
-                        break
-                    else:
-                        return False
-            print(f"[Git Sync] 推送成功!")
-            return True
-        except subprocess.TimeoutExpired:
-            print("Git timeout, retrying...")
-        except Exception as e:
-            print(f"Git error: {e}")
-            if attempt >= 2:
-                return False
-        time.sleep(1)
+        result = subprocess.run(
+            ["git", "commit", "-m", f"Nuclear Sniper: {processed_count} Zombies Eliminated"],
+            cwd=BASE_DIR,
+            capture_output=True,
+            text=True,
+            timeout=60
+        )
+        if result.returncode != 0:
+            if "nothing to commit" in result.stdout or "nothing to commit" in result.stderr:
+                print("[Git Sync] 没有新文件需要提交")
+                return True
+            print(f"Git commit failed: {result.stderr}")
+            return False
 
-    return False
+        result = subprocess.run(
+            ["git", "push", "origin", "main"],
+            cwd=BASE_DIR,
+            capture_output=True,
+            text=True,
+            timeout=120
+        )
+        if result.returncode != 0:
+            print(f"Git push failed: {result.stderr}")
+            return False
+
+        print(f"[Git Sync] 推送成功!")
+        return True
+    except Exception as e:
+        print(f"[Git Sync] 错误: {e}")
+        return False
 
 def main():
     print("=" * 80)
