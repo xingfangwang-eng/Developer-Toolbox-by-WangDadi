@@ -12,9 +12,10 @@ KILL_LIST_FILE = os.path.join(BASE_DIR, "KILL_LIST.txt")
 CLEARED_LOG = os.path.join(BASE_DIR, "cleared_v5.log")
 
 FORBIDDEN_WORDS = [
-    "概述", "核心功能", "步骤", "Describe", "Step", "Feature",
-    "説明", "手順", "描述", "功能", "主要特徵", "特征", "特徵"
+    "概述", "核心功能", "步骤", "主要特徵", "特征"
 ]
+
+MAX_RETRIES = 3
 
 def parse_kill_list():
     if not os.path.exists(KILL_LIST_FILE):
@@ -93,7 +94,7 @@ def call_ollama_llama3(project_name, language, original_content):
 任务：为项目 {project_name} 编写一份【全干货】的 {lang_name} 技术文档。
 
 ## 严禁词汇（绝对不能出现）
-概述、步骤、核心、Describe、Step、Feature、説明、手順、描述、功能、主要特徵、特征、特徵
+概述、步骤、核心、主要特徵、特征
 
 ## 必须包含内容
 
@@ -135,7 +136,7 @@ https://www.wangdadi.xyz/?utm_source=github_nuclear&lang={lang_code}
         print(f"  [错误] Ollama 调用失败: {e}")
         return None
 
-def process_file(filepath, max_retries=5):
+def process_file(filepath, max_retries=MAX_RETRIES):
     project_name, language = extract_info(filepath)
 
     with open(filepath, "r", encoding="utf-8") as f:
